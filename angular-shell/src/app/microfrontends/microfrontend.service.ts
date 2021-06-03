@@ -39,11 +39,11 @@ export class MicrofrontendService {
       '    "type": "angular",\n' +
       '    "subType": "module",\n' +
       '    "remoteEntry": "http://localhost:4202/remoteEntry.js",\n' +
-      '    "remoteName": "bss_admin_tool_cpq_workspace",\n' +
-      '    "exposedModule": "CpqWorkspaceModule",\n' +
-      '    "displayName": "Second federation plugin",\n' +
-      '    "routePath": "cpq",\n' +
-      '    "moduleName": "CpqWorkspaceModule"\n' +
+      '    "remoteName": "angular_mfe_2",\n' +
+      '    "exposedModule": "MfeModule",\n' +
+      '    "displayName": "Second federation module plugin",\n' +
+      '    "routePath": "secondModule",\n' +
+      '    "moduleName": "BusinessModule"\n' +
       '  },\n' +
       '  {\n' +
       '    "type": "react",\n' +
