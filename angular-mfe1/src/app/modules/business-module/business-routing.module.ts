@@ -5,13 +5,18 @@ import {BusinessComponent} from "./business/business.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'childBusiness',
     component: BusinessComponent,
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: 'childBusiness'
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'childBusiness'
   }
 ];
 

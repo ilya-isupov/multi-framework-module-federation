@@ -19,11 +19,21 @@ export class MicrofrontendService {
       '    "type": "angular",\n' +
       '    "subType": "module",\n' +
       '    "remoteEntry": "http://localhost:4201/remoteEntry.js",\n' +
-      '    "remoteName": "bss_admin_tool_cpm_workspace",\n' +
-      '    "exposedModule": "CpmWorkspaceModule",\n' +
-      '    "displayName": "First federation plugin",\n' +
-      '    "routePath": "cpm",\n' +
-      '    "moduleName": "CpmWorkspaceModule"\n' +
+      '    "remoteName": "angular_mfe_1",\n' +
+      '    "exposedModule": "MfeModule",\n' +
+      '    "displayName": "First lazy module plugin",\n' +
+      '    "routePath": "firstModule",\n' +
+      '    "moduleName": "BusinessModule"\n' +
+      '  },\n' +
+      '  {\n' +
+      '    "type": "angular",\n' +
+      '    "subType": "component",\n' +
+      '    "remoteEntry": "http://localhost:4201/remoteEntry.js",\n' +
+      '    "remoteName": "angular_mfe_1",\n' +
+      '    "exposedModule": "BusinessComponent",\n' +
+      '    "displayName": "First stupid component plugin",\n' +
+      '    "routePath": "firstComponent",\n' +
+      '    "moduleName": "BusinessComponent"\n' +
       '  },\n' +
       '  {\n' +
       '    "type": "angular",\n' +

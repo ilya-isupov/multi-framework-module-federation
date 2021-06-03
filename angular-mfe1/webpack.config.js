@@ -28,6 +28,7 @@ module.exports = {
       filename: "remoteEntry.js",
       exposes: {
         MfeModule: "./src/app/modules/business-module/business.module.ts",
+        BusinessComponent: "./src/app/modules/business-module/business/business.component.ts"
       },
       shared: {
         '@angular/common/http': {
