@@ -35,6 +35,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 3. Add @angular-architects/module-federation package. It will automatically add webpack.config.js and other settings needed to use module federation
 > ng add @angular-architects/module-federation
 4. After that configure partially configuration for webpack.config.js
+Example for remote plugin
 ```javascript
 const webpack = require("webpack");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
