@@ -1,6 +1,8 @@
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
-
 module.exports = function override(config, env) {
+    const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+
+    console.log();
+    console.dir(ModuleFederationPlugin);
     if (!config.plugins) {
         config.plugins = [];
     }
