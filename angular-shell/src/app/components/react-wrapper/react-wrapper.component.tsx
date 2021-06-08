@@ -1,44 +1,38 @@
-import {AfterContentInit, Component, ElementRef, Input, OnInit} from '@angular/core';
+import {AfterContentInit, Component, ElementRef} from '@angular/core';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {ActivatedRoute, Data} from "@angular/router";
 import {take} from "rxjs/operators";
-import {Microfrontend} from "../../microfrontends/microfrontend.model";
+import {FederationPlugin} from "../../microfrontends/microfrontend.model";
 import {loadRemoteModule} from "../../utils/federation-utils";
 
 
 @Component({
-    selector: 'react-wrapper',
-    template: '<div class="react-wrapper"></div>',
-    styles: [":host {height: 100%; overflow: auto;}"]
+  selector: 'react-wrapper',
+  template: '',
+  styles: [":host {height: 100%; overflow: auto;}"]
 })
-export class ReactWrapperComponent implements OnInit, AfterContentInit {
-    @Input() configuration!: Microfrontend;
+export class ReactWrapperComponent implements AfterContentInit {
 
-    constructor(private hostRef: ElementRef,
-                private route: ActivatedRoute
-    ) {
-    }
+  constructor(private hostRef: ElementRef,
+              private route: ActivatedRoute
+  ) {
+  }
 
-    ngOnInit(): void {
-        this.setConfiguration();
-    }
-
-    private setConfiguration(): void {
-        this.route.data.pipe(take(1)).subscribe((data: Data) => {
-            this.configuration = data.configuration;
-        })
-    }
-
-    async ngAfterContentInit(): Promise<void> {
+  async ngAfterContentInit(): Promise<void> {
+    this.route.data
+      .pipe(take(1))
+      .subscribe(async (data: Data) => {
+        const configuration: FederationPlugin = data.configuration;
         const component = await loadRemoteModule({
-            remoteEntry: this.configuration.remoteEntry,
-            remoteName: this.configuration.remoteName,
-            exposedModule: this.configuration.exposedModule
+          remoteEntry: configuration.remoteEntry,
+          remoteName: configuration.remoteName,
+          exposedModule: configuration.exposedModule
         });
-        const ReactMFEModule = component[this.configuration.moduleName];
+        const ReactMFEModule = component[configuration.moduleName];
         const hostElement = this.hostRef.nativeElement;
         ReactDOM.render(<ReactMFEModule/>, hostElement);
-    }
+      })
+  }
 
 }

@@ -1,12 +1,12 @@
 import {loadRemoteModule} from './federation-utils';
 import {Routes} from '@angular/router';
-import {Microfrontend} from '../microfrontends/microfrontend.model';
+import {FederationPlugin} from '../microfrontends/microfrontend.model';
 import {APPLICATION_ROUTES} from "../app-routing.module";
 import {AngularWrapperComponent} from "../components/angular-wrapper/angular-wrapper.component";
 import {ReactWrapperComponent} from "../components/react-wrapper/react-wrapper.component";
 
-export function buildRoutes(options: ReadonlyArray<Microfrontend>): Routes {
-  const lazyRoutes: Routes = options?.map((mfe: Microfrontend) => {
+export function buildRoutes(options: ReadonlyArray<FederationPlugin>): Routes {
+  const lazyRoutes: Routes = options?.map((mfe: FederationPlugin) => {
     switch (mfe.type) {
       case "angular": {
         switch (mfe.subType) {

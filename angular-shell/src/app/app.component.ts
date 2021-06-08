@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Microfrontend} from "./microfrontends/microfrontend.model";
+import {FederationPlugin} from "./microfrontends/microfrontend.model";
 import {Observable} from "rxjs";
 import {shareReplay} from "rxjs/operators";
-import {MicrofrontendService} from "./microfrontends/microfrontend.service";
+import {FederationPluginService} from "./microfrontends/federation-plugin.service";
 
 @Component({
   selector: 'app-root',
@@ -10,12 +10,12 @@ import {MicrofrontendService} from "./microfrontends/microfrontend.service";
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
-  routes$: Observable<ReadonlyArray<Microfrontend>>;
+  routes$: Observable<ReadonlyArray<FederationPlugin>>;
 
-  constructor(private microfrontendService: MicrofrontendService) {
+  constructor(private federationPluginService: FederationPluginService) {
   }
 
   ngOnInit(): void {
-    this.routes$ = this.microfrontendService.loadRoutesConfig().pipe(shareReplay(1));
+    this.routes$ = this.federationPluginService.loadRoutesConfig().pipe(shareReplay(1));
   }
 }

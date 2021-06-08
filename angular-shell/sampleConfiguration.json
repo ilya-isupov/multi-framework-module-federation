@@ -1,0 +1,10 @@
+{
+  "type": "angular",
+  "subType": "module",
+  "remoteEntry": "http://localhost:4201/remoteEntry.js",
+  "remoteName": "angular_mfe_1",
+  "exposedModule": "MfeModule",
+  "displayName": "First lazy module plugin",
+  "routePath": "firstModule",
+  "moduleName": "BusinessModule"
+}

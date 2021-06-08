@@ -1,15 +1,14 @@
-import {AfterContentInit, Component, ComponentFactoryResolver, Input, OnInit, ViewContainerRef} from '@angular/core';
-import {Microfrontend} from "../../microfrontends/microfrontend.model";
+import {AfterContentInit, Component, ComponentFactoryResolver, OnInit, ViewContainerRef} from '@angular/core';
+import {FederationPlugin} from "../../microfrontends/microfrontend.model";
 import {loadRemoteModule} from "../../utils/federation-utils";
 import {ActivatedRoute, Data} from "@angular/router";
 import {take} from "rxjs/operators";
 
 @Component({
   selector: 'angular-wrapper',
-  template: "<div #componentContainer class='angular-wrapper'></div>"
+  template: ""
 })
-export class AngularWrapperComponent implements AfterContentInit, OnInit {
-  @Input() configuration!: Microfrontend;
+export class AngularWrapperComponent implements AfterContentInit {
 
   constructor(private hostRef: ViewContainerRef,
               private componentFactoryResolver: ComponentFactoryResolver,
@@ -17,29 +16,24 @@ export class AngularWrapperComponent implements AfterContentInit, OnInit {
   ) {
   }
 
-  ngOnInit(): void {
-    this.setConfiguration();
-  }
-
   async ngAfterContentInit(): Promise<void> {
-    const component = await loadRemoteModule({
-      remoteEntry: this.configuration.remoteEntry,
-      remoteName: this.configuration.remoteName,
-      exposedModule: this.configuration.exposedModule
-    });
+    this.route.data
+      .pipe(take(1))
+      .subscribe(async (data: Data) => {
+        const configuration: FederationPlugin = data.configuration;
 
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component[this.configuration.moduleName]);
+        const component = await loadRemoteModule({
+          remoteEntry: configuration.remoteEntry,
+          remoteName: configuration.remoteName,
+          exposedModule: configuration.exposedModule
+        });
 
-    const viewContainerRef = this.hostRef;
-    viewContainerRef.clear();
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component[configuration.moduleName]);
+        this.hostRef.clear();
 
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    componentRef.changeDetectorRef.detectChanges();
-  }
+        const componentRef = this.hostRef.createComponent(componentFactory);
+        componentRef.changeDetectorRef.detectChanges();
+      })
 
-  private setConfiguration(): void {
-    this.route.data.pipe(take(1)).subscribe((data: Data) => {
-      this.configuration = data.configuration;
-    })
   }
 }
