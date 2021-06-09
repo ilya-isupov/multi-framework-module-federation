@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {AngularWrapperComponent} from "./components/angular-wrapper/angular-wrapper.component";
 import {ReactWrapperComponent} from "./components/react-wrapper/react-wrapper.component";
 import {FederationPluginService} from "./microfrontends/federation-plugin.service";
-import { WelcomeComponent } from './components/welcome/welcome.component';
+import {WelcomeComponent} from './components/welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -22,4 +22,5 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
   providers: [FederationPluginService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -10,7 +10,7 @@ sharedMappings.register(
 
 module.exports = {
   output: {
-    uniqueName: "angularMfe2",
+    uniqueName: "angular_mfe_2",
     publicPath: "auto"
   },
   optimization: {
