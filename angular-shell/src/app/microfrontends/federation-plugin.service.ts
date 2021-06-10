@@ -1,18 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, Routes} from '@angular/router';
 import {FederationPlugin} from './microfrontend.model';
 import {Observable, of, from} from "rxjs";
 import {map, shareReplay, switchMap, tap} from "rxjs/operators";
 import {buildRoutes} from "../utils/route-utils";
 import {loadRemoteEntry} from "../utils/federation-utils";
 import {SAMPLE_CONFIGURATION} from "./sample-configuration";
+import {PluginGlobalEventBusConsumer, PluginGlobalEventBusProducer} from "../../../../angular-mfe1/src/app/app.module";
 
 @Injectable()
 export class FederationPluginService {
 
-  constructor(private router: Router,
-  ) {
-  }
+  constructor(private router: Router) {}
 
   private static loadConfiguration(): Observable<ReadonlyArray<FederationPlugin>> {
     // just a sample, need to load this configuration from backend
@@ -34,7 +33,8 @@ export class FederationPluginService {
           );
         }),
         tap((routes: ReadonlyArray<FederationPlugin>) => {
-          this.router.resetConfig(buildRoutes(routes));
+          const appRoutes: Routes = buildRoutes(routes);
+          this.router.resetConfig(appRoutes);
           this.loadRemoteContainersByRoutes(routes);
         }),
         shareReplay(1)

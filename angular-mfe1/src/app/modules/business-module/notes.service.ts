@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from "rxjs";
 import {Note} from "./models/note.model";
-import {PluginGlobalEventBusSender} from "../../app.module";
+import {PluginGlobalEventBusProducer} from "../../app.module";
 
 @Injectable()
 export class NotesService {
-  constructor(private pluginEventBus: PluginGlobalEventBusSender) {
+  constructor(private pluginEventBus: PluginGlobalEventBusProducer) {
   }
 
   public saveNote(note: Note): Observable<void> {

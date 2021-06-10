@@ -6,8 +6,8 @@ import {AppComponent} from './app.component';
 import {WelcomeComponent} from './components/welcome/welcome.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 export const PLUGIN_EVENT_BUS_NAME: string = "pluginEventBus";
-export class PluginGlobalEventBusSender extends BroadcastChannel {}
-export class PluginGlobalEventBusReceiver extends BroadcastChannel {}
+export class PluginGlobalEventBusProducer extends BroadcastChannel {}
+export class PluginGlobalEventBusConsumer extends BroadcastChannel {}
 
 @NgModule({
   declarations: [
@@ -21,18 +21,18 @@ export class PluginGlobalEventBusReceiver extends BroadcastChannel {}
   ],
   providers: [
     {
-      provide: PluginGlobalEventBusSender,
+      provide: PluginGlobalEventBusProducer,
       useValue: new BroadcastChannel(PLUGIN_EVENT_BUS_NAME)
     },
     {
-      provide: PluginGlobalEventBusReceiver,
+      provide: PluginGlobalEventBusConsumer,
       useValue: new BroadcastChannel(PLUGIN_EVENT_BUS_NAME)
     }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(public pluginEventBusReceiver: PluginGlobalEventBusReceiver) {
+  constructor(public pluginEventBusReceiver: PluginGlobalEventBusConsumer) {
     this.pluginEventBusReceiver.onmessage = function (event) {
       console.log(event);
     }

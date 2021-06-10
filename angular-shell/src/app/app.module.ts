@@ -7,6 +7,12 @@ import {AngularWrapperComponent} from "./components/angular-wrapper/angular-wrap
 import {ReactWrapperComponent} from "./components/react-wrapper/react-wrapper.component";
 import {FederationPluginService} from "./microfrontends/federation-plugin.service";
 import {WelcomeComponent} from './components/welcome/welcome.component';
+import {
+  PluginGlobalEventBusConsumer,
+  PluginGlobalEventBusProducer
+} from "../../../angular-mfe1/src/app/app.module";
+
+export const PLUGIN_EVENT_BUS_NAME: string = "pluginEventBus";
 
 @NgModule({
   declarations: [
@@ -19,7 +25,17 @@ import {WelcomeComponent} from './components/welcome/welcome.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [FederationPluginService],
+  providers: [
+    FederationPluginService,
+    {
+      provide: PluginGlobalEventBusProducer,
+      useValue: new BroadcastChannel(PLUGIN_EVENT_BUS_NAME)
+    },
+    {
+      provide: PluginGlobalEventBusConsumer,
+      useValue: new BroadcastChannel(PLUGIN_EVENT_BUS_NAME)
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -6,7 +6,7 @@ import {take} from "rxjs/operators";
 
 @Component({
   selector: 'angular-wrapper',
-  template: ""
+  template: "<div></div>"
 })
 export class AngularWrapperComponent implements AfterContentInit {
 

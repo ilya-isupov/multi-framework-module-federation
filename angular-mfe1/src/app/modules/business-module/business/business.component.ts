@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NotesService} from "../notes.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {PluginGlobalEventBusReceiver} from "../../../app.module";
+import {PluginGlobalEventBusConsumer} from "../../../app.module";
 import {Note} from "../models/note.model";
 
 @Component({
@@ -16,7 +16,7 @@ export class BusinessComponent {
 
   constructor(private notesService: NotesService,
               private formBuilder: FormBuilder,
-              private pluginGlobalEventBusReceiver: PluginGlobalEventBusReceiver
+              private pluginGlobalEventBusReceiver: PluginGlobalEventBusConsumer
               ) {
     this.formGroup = this.formBuilder.group({
       type: [null],
