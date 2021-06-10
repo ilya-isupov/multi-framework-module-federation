@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {InjectionToken, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -7,12 +7,7 @@ import {AngularWrapperComponent} from "./components/angular-wrapper/angular-wrap
 import {ReactWrapperComponent} from "./components/react-wrapper/react-wrapper.component";
 import {FederationPluginService} from "./microfrontends/federation-plugin.service";
 import {WelcomeComponent} from './components/welcome/welcome.component';
-import {
-  PluginGlobalEventBusConsumer,
-  PluginGlobalEventBusProducer
-} from "../../../angular-mfe1/src/app/app.module";
-
-export const PLUGIN_EVENT_BUS_NAME: string = "pluginEventBus";
+import {EventBusService} from "./microfrontends/event-bus.service";
 
 @NgModule({
   declarations: [
@@ -28,12 +23,8 @@ export const PLUGIN_EVENT_BUS_NAME: string = "pluginEventBus";
   providers: [
     FederationPluginService,
     {
-      provide: PluginGlobalEventBusProducer,
-      useValue: new BroadcastChannel(PLUGIN_EVENT_BUS_NAME)
-    },
-    {
-      provide: PluginGlobalEventBusConsumer,
-      useValue: new BroadcastChannel(PLUGIN_EVENT_BUS_NAME)
+      provide: "GLOBAL_EVENT_BUS",
+      useClass: EventBusService
     }
   ],
   bootstrap: [AppComponent]

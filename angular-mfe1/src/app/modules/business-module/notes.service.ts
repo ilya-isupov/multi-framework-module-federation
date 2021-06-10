@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable, Optional} from '@angular/core';
 import {Observable, of} from "rxjs";
 import {Note} from "./models/note.model";
-import {PluginGlobalEventBusProducer} from "../../app.module";
+import {EventBusService} from "./models/event-bus.service";
 
 @Injectable()
 export class NotesService {
-  constructor(private pluginEventBus: PluginGlobalEventBusProducer) {
+  constructor(@Optional() @Inject("GLOBAL_EVENT_BUS") private pluginEventBus: EventBusService) {
   }
 
   public saveNote(note: Note): Observable<void> {
@@ -18,7 +18,7 @@ export class NotesService {
     }
 
     existingNotes.push(note);
-    this.pluginEventBus.postMessage({name: "AddNoteEvent", payload: note});
+    this.pluginEventBus?.postMessage({name: "AddNoteEvent", payload: note});
     return of(window.localStorage.setItem("my_notes", JSON.stringify(existingNotes)));
   }
 
@@ -31,5 +31,10 @@ export class NotesService {
       existingNotes = JSON.parse(existingNotesString);
     }
     return existingNotes;
+  }
+
+  public addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+  public addEventListener(type: string, listener: EventListenerOrEventListenerObject): void {
+    this.pluginEventBus.addEventListener(type, listener);
   }
 }

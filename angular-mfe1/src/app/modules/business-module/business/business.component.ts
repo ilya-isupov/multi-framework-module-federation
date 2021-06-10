@@ -1,33 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, Component, Inject, OnInit, Optional} from '@angular/core';
 import {NotesService} from "../notes.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {PluginGlobalEventBusConsumer} from "../../../app.module";
 import {Note} from "../models/note.model";
+import {EventBusService} from "../models/event-bus.service";
 
 @Component({
   selector: 'app-business-1',
   templateUrl: './business.component.html',
   styleUrls: ['./business.component.less']
 })
-export class BusinessComponent {
+export class BusinessComponent implements AfterContentInit {
 
   public formGroup: FormGroup;
   public notes: Array<Note> = [];
 
   constructor(private notesService: NotesService,
               private formBuilder: FormBuilder,
-              private pluginGlobalEventBusReceiver: PluginGlobalEventBusConsumer
+              @Optional() @Inject("GLOBAL_EVENT_BUS") private pluginEventBus: EventBusService
               ) {
     this.formGroup = this.formBuilder.group({
       type: [null],
       subject: [null, Validators.required],
       body: [null]
     });
+
+  }
+
+  ngAfterContentInit(): void {
     this.notes = this.notesService.getAllNotes();
-    this.pluginGlobalEventBusReceiver.addEventListener("message", (event) => {
-        if(event.data.name === "AddNoteEvent") {
-          this.notes.unshift(event.data.payload);
-        }
+    this.pluginEventBus?.addEventListener("message", (event) => {
+      if(event.data.name === "AddNoteEvent") {
+        this.notes.unshift(event.data.payload);
+      }
     })
   }
 

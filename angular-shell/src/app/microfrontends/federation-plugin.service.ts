@@ -1,12 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Router, Routes} from '@angular/router';
 import {FederationPlugin} from './microfrontend.model';
-import {Observable, of, from} from "rxjs";
-import {map, shareReplay, switchMap, tap} from "rxjs/operators";
+import {Observable, of} from "rxjs";
+import {shareReplay, switchMap, tap} from "rxjs/operators";
 import {buildRoutes} from "../utils/route-utils";
 import {loadRemoteEntry} from "../utils/federation-utils";
 import {SAMPLE_CONFIGURATION} from "./sample-configuration";
-import {PluginGlobalEventBusConsumer, PluginGlobalEventBusProducer} from "../../../../angular-mfe1/src/app/app.module";
 
 @Injectable()
 export class FederationPluginService {
