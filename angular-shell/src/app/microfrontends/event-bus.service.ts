@@ -21,7 +21,11 @@ export class EventBusService {
     this.producer.postMessage(message);
   }
 
-  addEventListener(type, listener): void {
-    this.consumer.addEventListener(type, listener);
+  addEventListener(eventName, listener): void {
+    this.consumer.addEventListener("message", (event) => {
+      if(event.data.name === eventName) {
+        listener(event);
+      }
+    });
   }
 }

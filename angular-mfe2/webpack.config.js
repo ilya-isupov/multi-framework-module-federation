@@ -27,7 +27,7 @@ module.exports = {
       library: {type: "var", name: "angular_mfe_2"},
       filename: "remoteEntry.js",
       exposes: {
-        MfeModule: "./src/app/modules/business-module/business.module.ts",
+        NotesCounter: "./src/app/modules/notes-counter/notes-counter/notes-counter.component.ts",
       },
       shared: {
         '@angular/common/http': {

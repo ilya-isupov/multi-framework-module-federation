@@ -5,7 +5,7 @@ import {WelcomeComponent} from "./components/welcome/welcome.component";
 const routes: Routes = [
   {
     path: 'business',
-    loadChildren: () => import('./modules/business-module/business.module').then((module) => module.BusinessModule),
+    loadChildren: () => import('./modules/notes-counter/notes-counter.module').then((module) => module.NotesCounterModule),
   },
   {
     path: '',

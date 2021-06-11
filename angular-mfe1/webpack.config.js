@@ -13,6 +13,14 @@ module.exports = {
     uniqueName: "angular_mfe_1",
     publicPath: "auto"
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      }
+    ]
+  },
   optimization: {
     runtimeChunk: false
   },

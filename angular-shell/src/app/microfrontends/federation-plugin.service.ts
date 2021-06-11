@@ -5,7 +5,7 @@ import {Observable, of} from "rxjs";
 import {shareReplay, switchMap, tap} from "rxjs/operators";
 import {buildRoutes} from "../utils/route-utils";
 import {loadRemoteEntry} from "../utils/federation-utils";
-import {SAMPLE_CONFIGURATION} from "./sample-configuration";
+import {ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR, SAMPLE_CONFIGURATION} from "./sample-configuration";
 
 @Injectable()
 export class FederationPluginService {
@@ -15,6 +15,11 @@ export class FederationPluginService {
   private static loadConfiguration(): Observable<ReadonlyArray<FederationPlugin>> {
     // just a sample, need to load this configuration from backend
     return of(SAMPLE_CONFIGURATION);
+  }
+
+  public getRemoteComponentConfiguration(pluginName: string): Observable<FederationPlugin> {
+    // just a sample, need to load this configuration from backend
+    return of(ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR[pluginName]);
   }
 
   loadRoutesConfig(): Observable<ReadonlyArray<FederationPlugin>> {

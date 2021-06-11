@@ -33,8 +33,7 @@ export class NotesService {
     return existingNotes;
   }
 
-  public addEventListener<K extends keyof BroadcastChannelEventMap>(type: K, listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-  public addEventListener(type: string, listener: EventListenerOrEventListenerObject): void {
-    this.pluginEventBus.addEventListener(type, listener);
+  public postNotesCountMessage(count: number): void {
+    this.pluginEventBus.postMessage({name: "NotesCountUpdate", payload: {count}});
   }
 }

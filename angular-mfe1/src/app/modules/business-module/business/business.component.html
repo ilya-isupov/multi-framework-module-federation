@@ -42,12 +42,20 @@
       <div *ngFor="let note of notes"
            class="business-component__note"
       >
-        <h5>Type</h5>
-        {{note.type}}
-        <h5>Subject</h5>
-        {{note.subject}}
-        <h5>Body</h5>
-        {{note.body}}
+        <div class="row">
+          <div class="col-4">
+            <h5>Type</h5>
+            {{note.type}}
+          </div>
+          <div class="col-4">
+            <h5>Subject</h5>
+            {{note.subject}}
+          </div>
+          <div class="col-4">
+            <h5>Body</h5>
+            {{note.body}}
+          </div>
+        </div>
       </div>
     </div>
   </div>

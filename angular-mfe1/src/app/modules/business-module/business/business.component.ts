@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, Inject, OnInit, Optional} from '@angular/core';
+import {AfterContentInit, Component, Inject, Optional, ViewEncapsulation} from '@angular/core';
 import {NotesService} from "../notes.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Note} from "../models/note.model";
@@ -7,7 +7,8 @@ import {EventBusService} from "../models/event-bus.service";
 @Component({
   selector: 'app-business-1',
   templateUrl: './business.component.html',
-  styleUrls: ['./business.component.less']
+  styleUrls: ['./business.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class BusinessComponent implements AfterContentInit {
 
@@ -28,14 +29,12 @@ export class BusinessComponent implements AfterContentInit {
 
   ngAfterContentInit(): void {
     this.notes = this.notesService.getAllNotes();
-    this.pluginEventBus?.addEventListener("message", (event) => {
-      if(event.data.name === "AddNoteEvent") {
-        this.notes.unshift(event.data.payload);
-      }
-    })
+    this.notesService.postNotesCountMessage(this.notes?.length);
   }
 
   public saveNote(): void {
     this.notesService.saveNote(this.formGroup.value);
+    this.notes.unshift(this.formGroup.value);
+    this.notesService.postNotesCountMessage(this.notes?.length);
   }
 }
