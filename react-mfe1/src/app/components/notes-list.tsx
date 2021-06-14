@@ -53,9 +53,6 @@ export class NotesList extends React.Component<NotesListProps, NotesListState> {
                 </Card.Content>
                 <Card.Content extra>
                   <div className='ui two buttons'>
-                    <Button basic color='green'>
-                      Approve
-                    </Button>
                     <Button basic color='red'
                             onClick={this.deleteNote.bind(this, index)}
                     >
