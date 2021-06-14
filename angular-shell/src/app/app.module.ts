@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {InjectionToken, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {AngularWrapperComponent} from "./components/angular-wrapper/angular-wrapper.component";
 import {ReactWrapperComponent} from "./components/react-wrapper/react-wrapper.component";
 import {FederationPluginService} from "./microfrontends/federation-plugin.service";
-import { WelcomeComponent } from './components/welcome/welcome.component';
+import {WelcomeComponent} from './components/welcome/welcome.component';
+import {EventBusService} from "./microfrontends/event-bus.service";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,14 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [FederationPluginService],
+  providers: [
+    FederationPluginService,
+    {
+      provide: "GLOBAL_EVENT_BUS",
+      useClass: EventBusService
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

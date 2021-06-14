@@ -1,22 +1,25 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, Routes} from '@angular/router';
 import {FederationPlugin} from './microfrontend.model';
-import {Observable, of, from} from "rxjs";
-import {map, shareReplay, switchMap, tap} from "rxjs/operators";
+import {Observable, of} from "rxjs";
+import {shareReplay, switchMap, tap} from "rxjs/operators";
 import {buildRoutes} from "../utils/route-utils";
 import {loadRemoteEntry} from "../utils/federation-utils";
-import {SAMPLE_CONFIGURATION} from "./sample-configuration";
+import {ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR, SAMPLE_CONFIGURATION} from "./sample-configuration";
 
 @Injectable()
 export class FederationPluginService {
 
-  constructor(private router: Router,
-  ) {
-  }
+  constructor(private router: Router) {}
 
   private static loadConfiguration(): Observable<ReadonlyArray<FederationPlugin>> {
     // just a sample, need to load this configuration from backend
     return of(SAMPLE_CONFIGURATION);
+  }
+
+  public getRemoteComponentConfiguration(pluginName: string): Observable<FederationPlugin> {
+    // just a sample, need to load this configuration from backend
+    return of(ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR[pluginName]);
   }
 
   loadRoutesConfig(): Observable<ReadonlyArray<FederationPlugin>> {
@@ -34,7 +37,8 @@ export class FederationPluginService {
           );
         }),
         tap((routes: ReadonlyArray<FederationPlugin>) => {
-          this.router.resetConfig(buildRoutes(routes));
+          const appRoutes: Routes = buildRoutes(routes);
+          this.router.resetConfig(appRoutes);
           this.loadRemoteContainersByRoutes(routes);
         }),
         shareReplay(1)
@@ -42,7 +46,7 @@ export class FederationPluginService {
 
   }
 
-  async loadRemoteContainersByRoutes(routes: ReadonlyArray<FederationPlugin>) {
+  private async loadRemoteContainersByRoutes(routes: ReadonlyArray<FederationPlugin>) {
     return Promise.all(routes.map((route: FederationPlugin) => {
       return loadRemoteEntry(route.remoteEntry);
     }))

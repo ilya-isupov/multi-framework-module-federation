@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ComponentFactoryResolver, OnInit, ViewContainerRef} from '@angular/core';
+import {AfterContentInit, Component, ComponentFactoryResolver, Input, ViewChild, ViewContainerRef} from '@angular/core';
 import {FederationPlugin} from "../../microfrontends/microfrontend.model";
 import {loadRemoteModule} from "../../utils/federation-utils";
 import {ActivatedRoute, Data} from "@angular/router";
@@ -6,34 +6,40 @@ import {take} from "rxjs/operators";
 
 @Component({
   selector: 'angular-wrapper',
-  template: ""
+  template: "<div class='angular-wrapper'><ng-container #container></ng-container></div>"
 })
 export class AngularWrapperComponent implements AfterContentInit {
+  @Input() configuration: FederationPlugin
 
-  constructor(private hostRef: ViewContainerRef,
-              private componentFactoryResolver: ComponentFactoryResolver,
+  @ViewChild("container", {read: ViewContainerRef}) container: ViewContainerRef;
+
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private route: ActivatedRoute
   ) {
   }
 
   async ngAfterContentInit(): Promise<void> {
-    this.route.data
-      .pipe(take(1))
-      .subscribe(async (data: Data) => {
-        const configuration: FederationPlugin = data.configuration;
+    if (!this.configuration) {
+      this.route.data
+        .pipe(take(1))
+        .subscribe(async (data: Data) => {
+          await this.renderComponent(data.configuration);
+        })
+    }
+    await this.renderComponent(this.configuration);
+  }
 
-        const component = await loadRemoteModule({
-          remoteEntry: configuration.remoteEntry,
-          remoteName: configuration.remoteName,
-          exposedModule: configuration.exposedModule
-        });
+  private async renderComponent(configuration: FederationPlugin): Promise<void> {
+    const component = await loadRemoteModule({
+      remoteEntry: configuration.remoteEntry,
+      remoteName: configuration.remoteName,
+      exposedModule: configuration.exposedModule
+    });
 
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component[configuration.moduleName]);
-        this.hostRef.clear();
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component[configuration.moduleName]);
+    this.container.clear();
 
-        const componentRef = this.hostRef.createComponent(componentFactory);
-        componentRef.changeDetectorRef.detectChanges();
-      })
-
+    const componentRef = this.container.createComponent(componentFactory);
+    componentRef.changeDetectorRef.detectChanges();
   }
 }

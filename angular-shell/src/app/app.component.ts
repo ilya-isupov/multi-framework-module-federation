@@ -11,11 +11,13 @@ import {FederationPluginService} from "./microfrontends/federation-plugin.servic
 })
 export class AppComponent implements OnInit {
   routes$: Observable<ReadonlyArray<FederationPlugin>>;
+  notesCounterConfiguration$: Observable<FederationPlugin>;
 
   constructor(private federationPluginService: FederationPluginService) {
   }
 
   ngOnInit(): void {
     this.routes$ = this.federationPluginService.loadRoutesConfig().pipe(shareReplay(1));
+    this.notesCounterConfiguration$ = this.federationPluginService.getRemoteComponentConfiguration("notesCounter");
   }
 }

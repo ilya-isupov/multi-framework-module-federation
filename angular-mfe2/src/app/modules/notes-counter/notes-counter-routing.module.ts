@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
-import {BusinessComponent} from "./business/business.component";
+import {NotesCounterComponent} from "./notes-counter/notes-counter.component";
 
 const routes: Routes = [
   {
-    path: 'childMfe2Business',
-    component: BusinessComponent,
+    path: 'notesCounter',
+    component: NotesCounterComponent,
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'childMfe2Business'
+    redirectTo: 'notesCounter'
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'childMfe2Business'
+    redirectTo: 'notesCounter'
   }
 ];
 
@@ -27,4 +27,4 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ]
 })
-export class BusinessRoutingModule { }
+export class NotesCounterRoutingModule { }

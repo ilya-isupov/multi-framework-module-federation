@@ -1,1 +1,71 @@
-<p>business MFE 1 works!</p>
+<div class="business-component">
+  <div class="row">
+    <div class="col-4">
+      <form class="form-inline" [formGroup]="formGroup"
+            (ngSubmit)="saveNote()"
+      >
+        <div class="mb-3">
+          <label for="noteType" class="form-label">Note type</label>
+          <select id="noteType"
+                  formControlName="type"
+                  class="form-select"
+                  aria-label="Note type">
+            <option selected>Not selected</option>
+            <option value="Note">Note</option>
+            <option value="Notification">Notification</option>
+            <option value="Calendar event">Calendar event</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="noteSubject" class="form-label">Subject</label>
+          <input type="text"
+                 formControlName="subject"
+                 class="form-control"
+                 [required]="true"
+                 id="noteSubject"
+                 placeholder="First note">
+        </div>
+        <div class="mb-3">
+          <label for="noteBody" class="form-label">Body</label>
+          <textarea formControlName="body"
+                    class="form-control"
+                    id="noteBody"
+                    rows="5"
+                    placeholder="Note body"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-warning">Submit</button>
+      </form>
+    </div>
+    <div class="col-8">
+      <ng-container *ngIf="notes?.length else noNotesTemplate">
+        <div *ngFor="let note of notes"
+             class="business-component__note"
+        >
+          <div class="row">
+            <div class="col-4">
+              <h5>Type</h5>
+              {{note.type}}
+            </div>
+            <div class="col-4">
+              <h5>Subject</h5>
+              {{note.subject}}
+            </div>
+            <div class="col-4">
+              <h5>Body</h5>
+              {{note.body}}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #noNotesTemplate>
+  <div class="business-component__empty">
+    No one note is created
+  </div>
+</ng-template>

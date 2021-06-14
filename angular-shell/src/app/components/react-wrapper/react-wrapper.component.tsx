@@ -1,10 +1,11 @@
-import {AfterContentInit, Component, ElementRef} from '@angular/core';
+import {AfterContentInit, Component, ElementRef, Input} from '@angular/core';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {ActivatedRoute, Data} from "@angular/router";
 import {take} from "rxjs/operators";
 import {FederationPlugin} from "../../microfrontends/microfrontend.model";
 import {loadRemoteModule} from "../../utils/federation-utils";
+import {EventBusService} from "../../microfrontends/event-bus.service";
 
 
 @Component({
@@ -14,8 +15,12 @@ import {loadRemoteModule} from "../../utils/federation-utils";
 })
 export class ReactWrapperComponent implements AfterContentInit {
 
+  @Input() props: Record<string, any>;
+
+
   constructor(private hostRef: ElementRef,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private eventBusService: EventBusService
   ) {
   }
 
@@ -30,9 +35,19 @@ export class ReactWrapperComponent implements AfterContentInit {
           exposedModule: configuration.exposedModule
         });
         const ReactMFEModule = component[configuration.moduleName];
-        const hostElement = this.hostRef.nativeElement;
-        ReactDOM.render(<ReactMFEModule/>, hostElement);
+        const ReactElement = React.createElement(ReactMFEModule, this.constructProps(data.props));
+        ReactDOM.render(ReactElement, this.hostRef.nativeElement);
       })
   }
 
+  private constructProps(routeProps) {
+    if(!routeProps) {
+      routeProps = {};
+    }
+    if(!this.props) {
+      this.props = {};
+    }
+
+    return {...this.props, ...routeProps, eventBus: this.eventBusService};
+  }
 }
