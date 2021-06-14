@@ -4,6 +4,7 @@ import './index.less';
 import 'semantic-ui-css/semantic.min.css';
 import {NotesList} from "app/components/notes-list";
 import {ApplicationProps} from "../application";
+import 'semantic-ui-css/semantic.min.css'
 
 export const App = hot(module)((props: ApplicationProps) => {
     return (

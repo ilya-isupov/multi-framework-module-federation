@@ -5,18 +5,18 @@ import {BusinessComponent} from "./business/business.component";
 
 const routes: Routes = [
   {
-    path: 'childMfe1Business',
+    path: 'notesPlugin',
     component: BusinessComponent,
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'childMfe1Business'
+    redirectTo: 'notesPlugin'
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'childMfe1Business'
+    redirectTo: 'notesPlugin'
   }
 ];
 

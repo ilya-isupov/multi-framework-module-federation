@@ -46,7 +46,7 @@ export class FederationPluginService {
 
   }
 
-  async loadRemoteContainersByRoutes(routes: ReadonlyArray<FederationPlugin>) {
+  private async loadRemoteContainersByRoutes(routes: ReadonlyArray<FederationPlugin>) {
     return Promise.all(routes.map((route: FederationPlugin) => {
       return loadRemoteEntry(route.remoteEntry);
     }))

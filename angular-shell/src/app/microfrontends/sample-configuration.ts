@@ -16,7 +16,7 @@ export const SAMPLE_CONFIGURATION: ReadonlyArray<FederationPlugin> = [
     "remoteEntry": "http://localhost:8080/remoteEntry.js",
     "remoteName": "react_app",
     "exposedModule": "ReactApp",
-    "displayName": "React shop application",
+    "displayName": "Notes admin panel",
     "routePath": "reactShop",
     "moduleName": "MainApplicationPlugin"
   }

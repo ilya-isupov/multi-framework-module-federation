@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {FederationPluginService} from "../../microfrontends/federation-plugin.service";
+import {Observable} from "rxjs";
+import {FederationPlugin} from "../../microfrontends/microfrontend.model";
 
 @Component({
   selector: 'app-welcome',
@@ -6,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.less']
 })
 export class WelcomeComponent implements OnInit {
+  routes$: Observable<ReadonlyArray<FederationPlugin>>;
 
-  constructor() { }
+  constructor(private federationPluginService: FederationPluginService) { }
 
   ngOnInit(): void {
+    this.routes$ = this.federationPluginService.loadRoutesConfig();
   }
 
 }

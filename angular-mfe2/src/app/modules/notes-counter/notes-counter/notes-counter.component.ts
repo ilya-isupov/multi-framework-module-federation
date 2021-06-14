@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit, Optional} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {EventBusService} from "../models/event-bus.service";
+import {Note} from "../../../../../../angular-mfe1/src/app/modules/business-module/models/note.model";
 
 @Component({
   selector: 'notes-counter',
@@ -18,6 +19,18 @@ export class NotesCounterComponent implements OnInit {
     this.pluginEventBus?.addEventListener("NotesCountUpdate", (event: MessageEvent) => {
       this.notesCountSubject$.next(event.data.payload.count);
     })
+    this.notesCountSubject$.next(this.getAllNotes()?.length);
+  }
+
+  private getAllNotes(): Array<Note> {
+    let existingNotes: Array<Note>;
+    const existingNotesString: string | null = window.localStorage.getItem("my_notes");
+    if (!existingNotesString) {
+      existingNotes = [];
+    } else {
+      existingNotes = JSON.parse(existingNotesString);
+    }
+    return existingNotes;
   }
 
 }

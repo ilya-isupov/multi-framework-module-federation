@@ -39,25 +39,33 @@
       </form>
     </div>
     <div class="col-8">
-      <div *ngFor="let note of notes"
-           class="business-component__note"
-      >
-        <div class="row">
-          <div class="col-4">
-            <h5>Type</h5>
-            {{note.type}}
-          </div>
-          <div class="col-4">
-            <h5>Subject</h5>
-            {{note.subject}}
-          </div>
-          <div class="col-4">
-            <h5>Body</h5>
-            {{note.body}}
+      <ng-container *ngIf="notes?.length else noNotesTemplate">
+        <div *ngFor="let note of notes"
+             class="business-component__note"
+        >
+          <div class="row">
+            <div class="col-4">
+              <h5>Type</h5>
+              {{note.type}}
+            </div>
+            <div class="col-4">
+              <h5>Subject</h5>
+              {{note.subject}}
+            </div>
+            <div class="col-4">
+              <h5>Body</h5>
+              {{note.body}}
+            </div>
           </div>
         </div>
-      </div>
+      </ng-container>
     </div>
   </div>
 
 </div>
+
+<ng-template #noNotesTemplate>
+  <div class="business-component__empty">
+    No one note is created
+  </div>
+</ng-template>
