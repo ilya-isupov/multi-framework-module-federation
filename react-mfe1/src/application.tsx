@@ -3,10 +3,12 @@ import {App} from "app/index";
 import * as React from "react";
 import {ApplicationService} from "./application.service";
 import {EventBusService} from "app/models/event-bus.model";
+import {GlobalNavigationService} from 'app/models/global-navigation.model';
 
 export interface ApplicationProps {
   header?: string;
   eventBus?: EventBusService;
+  globalNavigation?: GlobalNavigationService;
 }
 
 export class Application extends React.Component<ApplicationProps> {
@@ -16,7 +18,7 @@ export class Application extends React.Component<ApplicationProps> {
     super(props);
     console.log(props);
     this.applicationService.setEventBus(this.props.eventBus);
-
+    this.applicationService.setGlobalNavigationService(this.props.globalNavigation);
   }
 
   render(): React.ReactNode {

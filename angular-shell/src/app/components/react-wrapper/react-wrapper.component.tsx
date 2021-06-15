@@ -1,17 +1,18 @@
 import {AfterContentInit, Component, ElementRef, Input} from '@angular/core';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {ActivatedRoute, Data} from "@angular/router";
-import {take} from "rxjs/operators";
-import {FederationPlugin} from "../../microfrontends/microfrontend.model";
-import {loadRemoteModule} from "../../utils/federation-utils";
-import {EventBusService} from "../../microfrontends/event-bus.service";
+import {ActivatedRoute, Data} from '@angular/router';
+import {take} from 'rxjs/operators';
+import {FederationPlugin} from '../../microfrontends/microfrontend.model';
+import {loadRemoteModule} from '../../utils/federation-utils';
+import {EventBusService} from '../../microfrontends/event-bus.service';
+import {GlobalNavigationService} from '../../microfrontends/global-navigation.service';
 
 
 @Component({
   selector: 'react-wrapper',
   template: '',
-  styles: [":host {height: 100%; overflow: auto;}"]
+  styles: [':host {height: 100%; overflow: auto;}']
 })
 export class ReactWrapperComponent implements AfterContentInit {
 
@@ -20,7 +21,8 @@ export class ReactWrapperComponent implements AfterContentInit {
 
   constructor(private hostRef: ElementRef,
               private route: ActivatedRoute,
-              private eventBusService: EventBusService
+              private eventBusService: EventBusService,
+              private globalNavigationService: GlobalNavigationService
   ) {
   }
 
@@ -37,17 +39,17 @@ export class ReactWrapperComponent implements AfterContentInit {
         const ReactMFEModule = component[configuration.moduleName];
         const ReactElement = React.createElement(ReactMFEModule, this.constructProps(data.props));
         ReactDOM.render(ReactElement, this.hostRef.nativeElement);
-      })
+      });
   }
 
   private constructProps(routeProps) {
-    if(!routeProps) {
+    if (!routeProps) {
       routeProps = {};
     }
-    if(!this.props) {
+    if (!this.props) {
       this.props = {};
     }
 
-    return {...this.props, ...routeProps, eventBus: this.eventBusService};
+    return {...this.props, ...routeProps, eventBus: this.eventBusService, globalNavigation: this.globalNavigationService};
   }
 }

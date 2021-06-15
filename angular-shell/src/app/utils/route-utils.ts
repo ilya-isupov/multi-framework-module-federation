@@ -1,43 +1,51 @@
 import {loadRemoteModule} from './federation-utils';
 import {Routes} from '@angular/router';
 import {FederationPlugin} from '../microfrontends/microfrontend.model';
-import {APPLICATION_ROUTES} from "../app-routing.module";
-import {AngularWrapperComponent} from "../components/angular-wrapper/angular-wrapper.component";
-import {ReactWrapperComponent} from "../components/react-wrapper/react-wrapper.component";
+import {AngularWrapperComponent} from '../components/angular-wrapper/angular-wrapper.component';
+import {ReactWrapperComponent} from '../components/react-wrapper/react-wrapper.component';
+import {WelcomeComponent} from '../components/welcome/welcome.component';
+
+const APPLICATION_ROUTES: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    component: WelcomeComponent
+  }
+];
 
 export function buildRoutes(options: ReadonlyArray<FederationPlugin>): Routes {
   const lazyRoutes: Routes = options?.map((mfe: FederationPlugin) => {
     switch (mfe.type) {
-      case "angular": {
+      case 'angular': {
         switch (mfe.subType) {
-          case "module": {
+          case 'module': {
             return {
               path: mfe.routePath,
               loadChildren: () => loadRemoteModule(mfe).then((m) => m[mfe.moduleName]),
-            }
+            };
           }
-          case "component": {
+          case 'component': {
             return {
               path: mfe.routePath,
               component: AngularWrapperComponent,
               data: {configuration: mfe}
-            }
+            };
           }
         }
         break;
       }
-      case "react": {
+      case 'react': {
         return {
           path: mfe.routePath,
           component: ReactWrapperComponent,
           data: {configuration: mfe}
-        }
+        };
       }
       default: {
         return {
           path: mfe.routePath, // TODO: add UnknownPluginType component to catch incorrect configuration
           data: {configuration: mfe}
-        }
+        };
       }
     }
   });

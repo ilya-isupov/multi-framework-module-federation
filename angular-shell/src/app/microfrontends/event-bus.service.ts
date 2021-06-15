@@ -1,20 +1,20 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class EventBusService {
   private consumer: BroadcastChannel;
   private producer: BroadcastChannel;
 
   constructor() {
-    this.consumer = new BroadcastChannel("pluginGlobalEventBus");
-    this.producer = new BroadcastChannel("pluginGlobalEventBus");
+    this.consumer = new BroadcastChannel('pluginGlobalEventBus');
+    this.producer = new BroadcastChannel('pluginGlobalEventBus');
 
-    this.consumer.addEventListener("message", (event) => {
-      console.log("THIS IS APPLICATION BUS")
+    this.consumer.addEventListener('message', (event) => {
+      console.log('THIS IS APPLICATION BUS');
       console.log(event);
-    })
+    });
   }
 
   postMessage(message: any): void {
@@ -22,8 +22,8 @@ export class EventBusService {
   }
 
   addEventListener(eventName, listener): void {
-    this.consumer.addEventListener("message", (event) => {
-      if(event.data.name === eventName) {
+    this.consumer.addEventListener('message', (event) => {
+      if (event.data.name === eventName) {
         listener(event);
       }
     });

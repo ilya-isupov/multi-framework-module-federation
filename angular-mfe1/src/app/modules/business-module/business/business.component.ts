@@ -1,8 +1,11 @@
 import {AfterContentInit, Component, Inject, Optional, ViewEncapsulation} from '@angular/core';
-import {NotesService} from "../notes.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Note} from "../models/note.model";
-import {EventBusService} from "../models/event-bus.service";
+import {NotesService} from '../notes.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Note} from '../models/note.model';
+import {EventBusService} from '../models/event-bus.service';
+import {Router} from '@angular/router';
+import {NavigationAlias} from '../models/navigation.const';
+import {GlobalNavigationService} from '../models/navigation.service';
 
 @Component({
   selector: 'app-business-1',
@@ -17,8 +20,10 @@ export class BusinessComponent implements AfterContentInit {
 
   constructor(private notesService: NotesService,
               private formBuilder: FormBuilder,
-              @Optional() @Inject("GLOBAL_EVENT_BUS") private pluginEventBus: EventBusService
-              ) {
+              private router: Router,
+              @Optional() @Inject('GLOBAL_EVENT_BUS') private pluginEventBus: EventBusService,
+              @Optional() @Inject('GLOBAL_NAVIGATION_SERVICE') private globalNavigationService: GlobalNavigationService
+  ) {
     this.formGroup = this.formBuilder.group({
       type: [null],
       subject: [null, Validators.required],
@@ -36,5 +41,9 @@ export class BusinessComponent implements AfterContentInit {
     this.notesService.saveNote(this.formGroup.value);
     this.notes.unshift(this.formGroup.value);
     this.notesService.postNotesCountMessage(this.notes?.length);
+  }
+
+  public _navigateToAdminTool(): void {
+    this.globalNavigationService?.navigate(NavigationAlias.NOTES_ADMIN_PANEL);
   }
 }
