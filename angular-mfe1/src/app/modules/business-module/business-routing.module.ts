@@ -1,18 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from "@angular/router";
-import {BusinessComponent} from "./business/business.component";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterModule, Routes} from '@angular/router';
+import {BusinessComponent} from './business/business.component';
 
 const routes: Routes = [
   {
     path: 'notesPlugin',
     component: BusinessComponent,
-    pathMatch: 'full'
   },
   {
-    path: '**',
-    redirectTo: 'notesPlugin'
+    path: 'reactShop',
+    component: BusinessComponent,
   },
+
   {
     path: '',
     pathMatch: 'full',
@@ -27,4 +27,5 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ]
 })
-export class BusinessRoutingModule { }
+export class BusinessRoutingModule {
+}

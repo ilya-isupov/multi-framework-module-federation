@@ -7,6 +7,6 @@ export class MainApplicationPlugin extends React.Component {
   }
 
   render() {
-    return <Application header={this.props.header} eventBus={this.props.eventBus} basename={this.props.basename} />;
+    return <Application header={this.props.header} eventBus={this.props.eventBus} globalNavigation={this.props.globalNavigation} basename={this.props.basename} />;
   }
 }

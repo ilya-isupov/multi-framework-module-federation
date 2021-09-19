@@ -1,8 +1,10 @@
 import * as React from 'react';
-import {Button, Card} from 'semantic-ui-react'
-import {Note} from "app/models/note.model";
-import {EventBusService} from "app/models/event-bus.model";
-import {ApplicationService} from "../../application.service";
+import {Button, Card} from 'semantic-ui-react';
+import {Note} from 'app/models/note.model';
+import {EventBusService} from 'app/models/event-bus.model';
+import {ApplicationService} from '../../application.service';
+import {GlobalNavigationService} from 'app/models/global-navigation.model';
+import {NavigationAlias} from 'app/models/navigation.const';
 
 export interface NotesListProps {
 
@@ -15,6 +17,7 @@ export interface NotesListState {
 export class NotesList extends React.Component<NotesListProps, NotesListState> {
   private applicationService: ApplicationService = ApplicationService.getInstance();
   private eventBus: EventBusService = this.applicationService.getEventBus();
+  private globalNavigationService: GlobalNavigationService = this.applicationService.getGlobalNavigationService();
 
   constructor(props: NotesListProps) {
     super(props);
@@ -36,9 +39,20 @@ export class NotesList extends React.Component<NotesListProps, NotesListState> {
     this.eventBus?.postMessage({name: "NotesCountUpdate", payload: {count: notes?.length}});
   }
 
+  navigateToNotesList(): void {
+    this.globalNavigationService?.navigate(NavigationAlias.NOTES_LIST);
+  }
+
   render(): React.ReactNode {
     return (
       <div className="notes-admin-list">
+        <Card.Group>
+          <Button basic color='green'
+                  onClick={this.navigateToNotesList.bind(this)}
+          >
+            Navigate to notes list
+          </Button>
+        </Card.Group>
         {!this.state.notes?.length ? <h3>There is no notes</h3> : ''}
         <Card.Group>
           {this.state.notes?.map((note: Note, index: number) => {

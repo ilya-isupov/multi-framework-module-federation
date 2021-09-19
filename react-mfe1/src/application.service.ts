@@ -1,15 +1,27 @@
 import {EventBusService} from "app/models/event-bus.model";
 import {Note} from "app/models/note.model";
+import {GlobalNavigationService} from 'app/models/global-navigation.model';
 
 export class ApplicationService {
   private static instance: ApplicationService;
   private eventBus: EventBusService
+  private globalNavigationService: GlobalNavigationService;
 
   public static getInstance(): ApplicationService {
     if (!ApplicationService.instance) {
       ApplicationService.instance = new ApplicationService();
     }
     return ApplicationService.instance;
+  }
+
+  setGlobalNavigationService(globalNavigationService: GlobalNavigationService | undefined): void {
+    if(globalNavigationService) {
+      this.globalNavigationService = globalNavigationService;
+    }
+  }
+
+  getGlobalNavigationService(): GlobalNavigationService {
+    return this.globalNavigationService;
   }
 
   setEventBus(eventBus: EventBusService | undefined): void {

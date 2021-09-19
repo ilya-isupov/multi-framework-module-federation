@@ -1,17 +1,17 @@
 import {AfterContentInit, Component, ComponentFactoryResolver, Input, ViewChild, ViewContainerRef} from '@angular/core';
-import {FederationPlugin} from "../../microfrontends/microfrontend.model";
-import {loadRemoteModule} from "../../utils/federation-utils";
-import {ActivatedRoute, Data} from "@angular/router";
-import {take} from "rxjs/operators";
+import {FederationPlugin} from '../../microfrontends/microfrontend.model';
+import {loadRemoteModule} from '../../utils/federation-utils';
+import {ActivatedRoute, Data} from '@angular/router';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'angular-mf-adapter',
-  template: "<div class='angular-wrapper'><ng-container #container></ng-container></div>"
+  template: '<div class=\'angular-wrapper\'><ng-container #container></ng-container></div>'
 })
 export class AngularWrapperComponent implements AfterContentInit {
-  @Input() configuration: FederationPlugin
+  @Input() configuration: FederationPlugin;
 
-  @ViewChild("container", {read: ViewContainerRef}) container: ViewContainerRef;
+  @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private route: ActivatedRoute
@@ -24,7 +24,7 @@ export class AngularWrapperComponent implements AfterContentInit {
         .pipe(take(1))
         .subscribe(async (data: Data) => {
           await this.renderComponent(data.configuration);
-        })
+        });
     }
     await this.renderComponent(this.configuration);
   }
