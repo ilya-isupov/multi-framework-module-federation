@@ -6,5 +6,5 @@ export type FederationPlugin = LoadRemoteModuleOptions & {
   moduleName: string;
   navigationAlias?: string;
   type: 'angular' | 'react';
-  subType?: 'module' | 'component';
+  subType?: 'routeModule' | 'componentModule' | 'component';
 };

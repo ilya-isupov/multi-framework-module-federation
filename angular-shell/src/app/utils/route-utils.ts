@@ -18,21 +18,19 @@ export function buildRoutes(options: ReadonlyArray<FederationPlugin>): Routes {
     switch (mfe.type) {
       case 'angular': {
         switch (mfe.subType) {
-          case 'module': {
+          case 'routeModule': {
             return {
               path: mfe.routePath,
               loadChildren: () => loadRemoteModule(mfe).then((m) => m[mfe.moduleName]),
             };
           }
-          case 'component': {
+          default: {
             return {
               path: mfe.routePath,
-              component: AngularWrapperComponent,
-              data: {configuration: mfe}
+              loadChildren: () => loadRemoteModule(mfe).then((m) => m[mfe.moduleName]),
             };
           }
         }
-        break;
       }
       case 'react': {
         return {

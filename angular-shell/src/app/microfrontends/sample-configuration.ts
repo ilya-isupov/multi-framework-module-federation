@@ -4,7 +4,7 @@ import {NavigationAlias} from './navigation.const';
 export const SAMPLE_CONFIGURATION: ReadonlyArray<FederationPlugin> = [
   {
     type: 'angular',
-    subType: 'module',
+    subType: 'routeModule',
     remoteEntry: 'http://localhost:4201/remoteEntry.js',
     remoteName: 'angular_mfe_1',
     exposedModule: 'MfeModule',
