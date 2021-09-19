@@ -5,7 +5,7 @@ import {ActivatedRoute, Data} from "@angular/router";
 import {take} from "rxjs/operators";
 
 @Component({
-  selector: 'angular-wrapper',
+  selector: 'angular-mf-adapter',
   template: "<div class='angular-wrapper'><ng-container #container></ng-container></div>"
 })
 export class AngularWrapperComponent implements AfterContentInit {

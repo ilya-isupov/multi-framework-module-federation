@@ -29,8 +29,13 @@ export function buildRoutes(options: ReadonlyArray<FederationPlugin>): Routes {
       case "react": {
         return {
           path: mfe.routePath,
-          component: ReactWrapperComponent,
-          data: {configuration: mfe}
+          children: [
+            {
+              path: "**",
+              component: ReactWrapperComponent,
+              data: {configuration: mfe}
+            }
+          ]
         }
       }
       default: {

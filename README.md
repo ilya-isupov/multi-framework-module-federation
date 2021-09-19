@@ -32,9 +32,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 > "resolutions": {"webpack": "^5.0.0"}
 2. Set yarn package manager default for project
 > ng config cli.packageManager yarn
-3. Add @angular-architects/module-federation package. It will automatically add webpack.config.js and other settings needed to use module federation
+3. Add @angular-architects/module-federation package. It will automatically add config-overrides.js and other settings needed to use module federation
 > ng add @angular-architects/module-federation
-4. After that configure partially configuration for webpack.config.js
+4. After that configure partially configuration for config-overrides.js
 Example for remote plugin
 ```javascript
 const webpack = require("webpack");

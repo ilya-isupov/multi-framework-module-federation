@@ -7,6 +7,7 @@ import {EventBusService} from "app/models/event-bus.model";
 export interface ApplicationProps {
   header?: string;
   eventBus?: EventBusService;
+  basename?: string;
 }
 
 export class Application extends React.Component<ApplicationProps> {
@@ -21,7 +22,7 @@ export class Application extends React.Component<ApplicationProps> {
 
   render(): React.ReactNode {
     return (
-      <BrowserRouter>
+      <BrowserRouter basename={this.props.basename ?? ''}>
         <App header={this.props.header}/>
       </BrowserRouter>
     );
