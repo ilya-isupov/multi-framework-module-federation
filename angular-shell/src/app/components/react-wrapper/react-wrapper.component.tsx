@@ -16,7 +16,14 @@ import {GlobalNavigationService} from '../../microfrontends/global-navigation.se
 })
 export class ReactWrapperComponent implements AfterContentInit {
 
-  @Input() props: Record<string, any>;
+  _props: Record<string, unknown>
+  @Input() set props(props: Record<string, unknown>) {
+    this._props = props;
+    this.updateComponentProps(props);
+  }
+  @Input() configuration: FederationPlugin;
+
+  private reactMFEModule;
 
 
   constructor(private hostRef: ElementRef,
@@ -27,27 +34,40 @@ export class ReactWrapperComponent implements AfterContentInit {
   }
 
   async ngAfterContentInit(): Promise<void> {
-    this.route.data
-      .pipe(take(1))
-      .subscribe(async (data: Data) => {
-        const configuration: FederationPlugin = data.configuration;
-        const component = await loadRemoteModule({
-          remoteEntry: configuration.remoteEntry,
-          remoteName: configuration.remoteName,
-          exposedModule: configuration.exposedModule
+    if(!this.configuration) {
+      this.route.data
+        .pipe(take(1))
+        .subscribe(async (data: Data) => {
+          const configuration: FederationPlugin = data.configuration;
+          await this.renderComponent(configuration, data.props);
         });
-        const ReactMFEModule = component[configuration.moduleName];
-        const ReactElement = React.createElement(ReactMFEModule, this.constructProps({...data.props, basename: configuration.routePath}));
-        ReactDOM.render(ReactElement, this.hostRef.nativeElement);
-      });
+    }
+    await this.renderComponent(this.configuration, this._props);
+  }
+
+  private async renderComponent(configuration: FederationPlugin, props: Record<string, unknown>): Promise<void> {
+    this.configuration = configuration;
+    const component = await loadRemoteModule({
+      remoteEntry: configuration.remoteEntry,
+      remoteName: configuration.remoteName,
+      exposedModule: configuration.exposedModule
+    });
+    this.reactMFEModule = component[configuration.moduleName];
+    const ReactElement = React.createElement(this.reactMFEModule, this.constructProps({...props, basename: this.configuration.routePath}));
+    ReactDOM.render(ReactElement, this.hostRef.nativeElement);
+  }
+
+  private updateComponentProps(props: Record<string, unknown>): void {
+    const ReactElement = React.createElement(this.reactMFEModule, this.constructProps({...props, basename: this.configuration.routePath}));
+    ReactDOM.render(ReactElement, this.hostRef.nativeElement);
   }
 
   private constructProps(routeProps) {
     if (!routeProps) {
       routeProps = {};
     }
-    if (!this.props) {
-      this.props = {};
+    if (!this._props) {
+      this._props = {};
     }
 
     return {...this.props, ...routeProps, eventBus: this.eventBusService, globalNavigation: this.globalNavigationService};
