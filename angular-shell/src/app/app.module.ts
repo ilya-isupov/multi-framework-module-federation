@@ -30,7 +30,12 @@ import {GlobalNavigationService} from './microfrontends/global-navigation.servic
     {
       provide: 'GLOBAL_NAVIGATION_SERVICE',
       useClass: GlobalNavigationService
+    },
+    {
+      provide: 'GLOBAL_SERVICES',
+      useFactory: () => {}
     }
+
   ],
   bootstrap: [AppComponent]
 })

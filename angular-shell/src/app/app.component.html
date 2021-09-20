@@ -14,6 +14,7 @@
   </span>
   <div class="spacer"></div>
   <angular-mf-adapter class="toolbar__notes-counter" [configuration]="notesCounterConfiguration$ | async"></angular-mf-adapter>
+  <angular-mf-adapter class="toolbar__notes-counter _extended" [configuration]="notesCounterExtendedConfiguration$ | async"></angular-mf-adapter>
 </div>
 
 <div class="content" role="main">
@@ -49,13 +50,6 @@
 
   </div>
 </div>
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 <div *ngIf="(routes$ | async)?.length">
   <router-outlet></router-outlet>

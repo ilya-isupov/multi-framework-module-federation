@@ -52,7 +52,7 @@ export class ReactWrapperComponent implements AfterContentInit {
       remoteName: configuration.remoteName,
       exposedModule: configuration.exposedModule
     });
-    this.reactMFEModule = component[configuration.moduleName];
+    this.reactMFEModule = component[configuration.moduleClassName];
     const ReactElement = React.createElement(this.reactMFEModule, this.constructProps({...props, basename: this.configuration.routePath}));
     ReactDOM.render(ReactElement, this.hostRef.nativeElement);
   }
@@ -62,7 +62,7 @@ export class ReactWrapperComponent implements AfterContentInit {
     ReactDOM.render(ReactElement, this.hostRef.nativeElement);
   }
 
-  private constructProps(routeProps) {
+  private constructProps(routeProps): Record<string, unknown> {
     if (!routeProps) {
       routeProps = {};
     }

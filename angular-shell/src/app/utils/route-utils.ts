@@ -21,13 +21,13 @@ export function buildRoutes(options: ReadonlyArray<FederationPlugin>): Routes {
           case 'routeModule': {
             return {
               path: mfe.routePath,
-              loadChildren: () => loadRemoteModule(mfe).then((m) => m[mfe.moduleName]),
+              loadChildren: () => loadRemoteModule(mfe).then((m) => m[mfe.moduleClassName]),
             };
           }
           default: {
             return {
               path: mfe.routePath,
-              loadChildren: () => loadRemoteModule(mfe).then((m) => m[mfe.moduleName]),
+              loadChildren: () => loadRemoteModule(mfe).then((m) => m[mfe.moduleClassName]),
             };
           }
         }
