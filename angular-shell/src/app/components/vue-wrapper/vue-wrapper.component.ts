@@ -34,8 +34,9 @@ export class VueWrapperComponent implements AfterContentInit {
           exposedModule: configuration.exposedModule
         });
 
+        const vueComponent = component[configuration.moduleClassName || 'default'];
         new Vue({
-          render: (h) => h(component.default),
+          render: (h) => h(vueComponent),
           data: () => {
             return (this.props || {});
           }

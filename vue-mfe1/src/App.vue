@@ -1,11 +1,13 @@
 <template>
-  <div id="app">
+  <div>
     <p>
-      <router-link to="/user/foo">/user/foo</router-link>
-      <router-link to="/user/foo/profile">/user/foo/profile</router-link>
-      <router-link to="/user/foo/posts">/user/foo/posts</router-link>
+      <router-link to="/user/e123saASf2123s">User</router-link>
+      <router-link to="/user/e123saASf2123s/profile">Profile</router-link>
+      <router-link to="/user/e123saASf2123s/posts">Posts</router-link>
     </p>
-    <router-view></router-view>
+    <div id="app">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -13,8 +15,7 @@
 
 export default {
   name: 'App',
-  components: {
-  }
+  components: {}
 }
 </script>
 

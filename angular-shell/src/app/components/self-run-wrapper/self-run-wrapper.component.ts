@@ -33,7 +33,8 @@ export class SelfRunWrapperComponent implements AfterContentInit {
           exposedModule: configuration.exposedModule
         });
 
-        component.default(this.hostRef.nativeElement, this.props);
+        const selfRunApp = component[configuration.moduleClassName || 'default'];
+        selfRunApp(this.hostRef.nativeElement, this.props);
       });
   }
 }
