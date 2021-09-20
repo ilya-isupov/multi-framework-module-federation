@@ -104,7 +104,7 @@ module.exports = {
       library: {type: "var", name: "react_app"},
       filename: "remoteEntry.js",
       exposes: {
-        "ShopApp": "./main.plugin"
+        "RoutesApp": "./main.plugin"
       },
       shared: [{"react": {singleton: true, eager: true}}, {"react-dom": {singleton: true, eager: true}}]
     }),
@@ -113,6 +113,7 @@ module.exports = {
     historyApiFallback: true,
     contentBase: 'build',
     hot: true,
+    port: 8081
   },
   // https://webpack.js.org/configuration/devtool/
   devtool: isProduction ? 'hidden-source-map' : 'eval-source-map'

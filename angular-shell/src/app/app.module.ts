@@ -1,8 +1,8 @@
-import {InjectionToken, NgModule} from '@angular/core';
+import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
+import {AppComponent, TestService} from './app.component';
 import {AngularWrapperComponent} from './components/angular-wrapper/angular-wrapper.component';
 import {ReactWrapperComponent} from './components/react-wrapper/react-wrapper.component';
 import {FederationPluginService} from './microfrontends/federation-plugin.service';
@@ -33,7 +33,8 @@ import {GlobalNavigationService} from './microfrontends/global-navigation.servic
     },
     {
       provide: 'GLOBAL_SERVICES',
-      useFactory: () => {}
+      useFactory: () => {
+      }
     }
 
   ],

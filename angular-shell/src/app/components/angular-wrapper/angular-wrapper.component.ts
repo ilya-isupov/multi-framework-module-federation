@@ -58,7 +58,6 @@ export class AngularWrapperComponent implements AfterContentInit {
           this.compiler.compileModuleAndAllComponentsAsync(component[configuration.moduleClassName])
             .then(async (module) => {
               const moduleFactory = module.ngModuleFactory.create(this.injector);
-              const service = moduleFactory.injector.get('NotesService');
               const innerComponent = await loadRemoteModule({
                 remoteEntry: configuration.remoteEntry,
                 remoteName: configuration.remoteName,

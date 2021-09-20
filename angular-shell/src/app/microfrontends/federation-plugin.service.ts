@@ -1,19 +1,28 @@
-import {Injectable} from '@angular/core';
+import {Compiler, Injectable, Injector} from '@angular/core';
 import {Router, Routes} from '@angular/router';
 import {FederationPlugin} from './microfrontend.model';
 import {Observable, of} from 'rxjs';
 import {shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {buildRoutes} from '../utils/route-utils';
-import {loadRemoteEntry} from '../utils/federation-utils';
-import {ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR, NAVIGATION_ALIASES_MAP_TO_ROUTE_URL, SAMPLE_CONFIGURATION} from './sample-configuration';
+import {loadRemoteEntry, loadRemoteModule} from '../utils/federation-utils';
+import {
+  ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR,
+  ANGULAR_REMOTE_SERVICE_DESCRIPTOR,
+  NAVIGATION_ALIASES_MAP_TO_ROUTE_URL,
+  SAMPLE_CONFIGURATION
+} from './sample-configuration';
 import {AppService} from '../app.service';
 import {NavigationAlias} from './navigation.const';
+import {TestService} from '../app.component';
 
 @Injectable()
 export class FederationPluginService {
   private static readonly ROUTES_CONFIGURATION = 'routes_configuration';
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private compiler: Compiler,
+              private injector: Injector
+              ) {
   }
 
   private static loadConfiguration(): Observable<ReadonlyArray<FederationPlugin>> {
@@ -26,9 +35,35 @@ export class FederationPluginService {
     return of(NAVIGATION_ALIASES_MAP_TO_ROUTE_URL);
   }
 
+  private async injectRemoteService<T>(configuration: FederationPlugin): Promise<T> {
+    let service;
+    if (configuration) {
+      const remoteModule = await loadRemoteModule({
+        remoteEntry: configuration.remoteEntry,
+        remoteName: configuration.remoteName,
+        exposedModule: configuration.exposedModule
+      });
+      const module = await this.compiler.compileModuleAndAllComponentsAsync(remoteModule[configuration.moduleClassName]);
+      const moduleFactory = module.ngModuleFactory.create(this.injector);
+      service = moduleFactory.injector.get(configuration.serviceClassName);
+    }
+    return service;
+  }
+
   public getRemoteComponentConfiguration(pluginName: string): Observable<FederationPlugin> {
-    // just a sample, need to load this configuration from backend
+    // just a sample, need to load this configuration from backend or deployment
     return of(ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR[pluginName]);
+  }
+
+  public async getRemoteService<T>(serviceName: string): Promise<T> {
+    return this.injectRemoteService<T>(
+      this.getRemoteServiceConfiguration('notesService')
+    );
+  }
+
+  private getRemoteServiceConfiguration(serviceName: string): FederationPlugin {
+    // just a sample, need to load this configuration from backend or deployment
+    return ANGULAR_REMOTE_SERVICE_DESCRIPTOR[serviceName];
   }
 
   loadRoutesConfig(): Observable<ReadonlyArray<FederationPlugin>> {
