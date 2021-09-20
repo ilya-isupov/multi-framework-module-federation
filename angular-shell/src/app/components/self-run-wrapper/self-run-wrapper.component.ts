@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ElementRef, Input} from '@angular/core';
+import {AfterContentInit, Component, ElementRef, Input, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Data} from '@angular/router';
 import {take} from 'rxjs/operators';
 import {FederationPlugin} from '../../microfrontends/microfrontend.model';
@@ -11,7 +11,7 @@ import {GlobalNavigationService} from '../../microfrontends/global-navigation.se
   template: '',
   styles: [':host {height: 100%; overflow: auto;}']
 })
-export class SelfRunWrapperComponent implements AfterContentInit {
+export class SelfRunWrapperComponent implements AfterContentInit, OnDestroy {
 
   @Input() props: Record<string, any>;
 
@@ -20,6 +20,9 @@ export class SelfRunWrapperComponent implements AfterContentInit {
               private eventBusService: EventBusService,
               private globalNavigationService: GlobalNavigationService
   ) {
+  }
+
+  ngOnDestroy(): void {
   }
 
   async ngAfterContentInit(): Promise<void> {
@@ -34,7 +37,7 @@ export class SelfRunWrapperComponent implements AfterContentInit {
         });
 
         const selfRunApp = component[configuration.moduleClassName || 'default'];
-        selfRunApp(this.hostRef.nativeElement, this.props);
+        selfRunApp(this.hostRef.nativeElement, this.props, configuration.routePath);
       });
   }
 }

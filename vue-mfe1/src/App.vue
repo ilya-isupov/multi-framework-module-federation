@@ -12,20 +12,31 @@
 </template>
 
 <script>
-
+import { ref, defineAsyncComponent } from "vue";
 export default {
-  name: 'App',
-  components: {}
-}
+  components: {
+    Content: defineAsyncComponent(() => import("./components/Content")),
+    Button: defineAsyncComponent(() => import("./components/Button")),
+  },
+  setup() {
+    const count = ref(0);
+    const inc = () => {
+      count.value++;
+    };
+
+    return {
+      count,
+      inc,
+    };
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+img {
+  width: 200px;
+}
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
 }
 </style>

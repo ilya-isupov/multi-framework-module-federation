@@ -1,7 +1,7 @@
 <template>
-<div>
-  Posts
-</div>
+  <div>
+    UserPosts
+  </div>
 </template>
 
 <script>

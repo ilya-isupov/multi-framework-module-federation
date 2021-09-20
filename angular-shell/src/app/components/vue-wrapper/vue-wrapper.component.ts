@@ -1,18 +1,20 @@
-import {AfterContentInit, Component, ElementRef, Input} from '@angular/core';
+import {AfterContentInit, Component, ElementRef, Input, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Data} from '@angular/router';
 import {take} from 'rxjs/operators';
 import {FederationPlugin} from '../../microfrontends/microfrontend.model';
 import {loadRemoteModule} from '../../utils/federation-utils';
 import {EventBusService} from '../../microfrontends/event-bus.service';
 import {GlobalNavigationService} from '../../microfrontends/global-navigation.service';
-import Vue from 'Vue';
+import {createApp} from 'vue';
 
 @Component({
   selector: 'vue-wrapper',
   template: '',
   styles: [':host {height: 100%; overflow: auto;}']
 })
-export class VueWrapperComponent implements AfterContentInit {
+export class VueWrapperComponent implements AfterContentInit, OnDestroy {
+
+  vueComponentRef;
 
   @Input() props: Record<string, any>;
 
@@ -35,13 +37,16 @@ export class VueWrapperComponent implements AfterContentInit {
         });
 
         const vueComponent = component[configuration.moduleClassName || 'default'];
-        new Vue({
-          render: (h) => h(vueComponent),
+        this.vueComponentRef = createApp(vueComponent, {
           data: () => {
             return (this.props || {});
           }
-        }).$mount(this.hostRef.nativeElement);
+        });
+        this.vueComponentRef.mount(this.hostRef.nativeElement);
       });
+  }
+
+  ngOnDestroy(): void {
   }
 }
 
