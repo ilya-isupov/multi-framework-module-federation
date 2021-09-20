@@ -34,11 +34,11 @@ export const SAMPLE_CONFIGURATION: ReadonlyArray<FederationPlugin> = [
   {
     type: 'vue',
     remoteEntry: 'http://localhost:3002/remoteEntry.js',
-    remoteName: 'home',
+    remoteName: 'vue_app',
     exposedModule: './Content',
     displayName: 'Simple Vue Component',
-    routePath: 'vue2',
-    navigationAlias: 'vue2'
+    routePath: 'vue-content',
+    navigationAlias: 'vue-content'
   },
   {
     type: 'react',
