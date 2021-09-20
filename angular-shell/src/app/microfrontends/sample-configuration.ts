@@ -22,6 +22,14 @@ export const SAMPLE_CONFIGURATION: ReadonlyArray<FederationPlugin> = [
     routePath: 'notesAdminPanel',
     navigationAlias: 'notesAdminPanel',
     moduleName: 'MainApplicationPlugin'
+  },
+  {
+    remoteEntry: 'http://localhost:9000/remoteEntry.js',
+    remoteName: 'vue_app',
+    exposedModule: './AppWithRouting',
+    displayName: 'Simple Vue App',
+    routePath: 'vue',
+    navigationAlias: 'vue'
   }
 ];
 

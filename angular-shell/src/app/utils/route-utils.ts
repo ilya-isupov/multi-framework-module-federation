@@ -4,6 +4,8 @@ import {FederationPlugin} from '../microfrontends/microfrontend.model';
 import {AngularWrapperComponent} from '../components/angular-wrapper/angular-wrapper.component';
 import {ReactWrapperComponent} from '../components/react-wrapper/react-wrapper.component';
 import {WelcomeComponent} from '../components/welcome/welcome.component';
+import {VueWrapperComponent} from '../components/vue-wrapper/vue-wrapper.component';
+import {SelfRunWrapperComponent} from '../components/self-run-wrapper/self-run-wrapper.component';
 
 const APPLICATION_ROUTES: Routes = [
   {
@@ -37,17 +39,35 @@ export function buildRoutes(options: ReadonlyArray<FederationPlugin>): Routes {
           path: mfe.routePath,
           children: [
             {
-              path: "**",
+              path: '**',
               component: ReactWrapperComponent,
               data: {configuration: mfe}
             }
           ]
-        }
+        };
+      }
+      case 'vue': {
+        return {
+          path: mfe.routePath,
+          children: [
+            {
+              path: '**',
+              component: VueWrapperComponent,
+              data: {configuration: mfe}
+            }
+          ]
+        };
       }
       default: {
         return {
           path: mfe.routePath, // TODO: add UnknownPluginType component to catch incorrect configuration
-          data: {configuration: mfe}
+          children: [
+            {
+              path: '**',
+              component: SelfRunWrapperComponent,
+              data: {configuration: mfe}
+            }
+          ]
         };
       }
     }
