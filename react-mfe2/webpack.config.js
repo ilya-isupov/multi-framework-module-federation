@@ -100,18 +100,20 @@ module.exports = {
       }
     }),
     new ModuleFederationPlugin({
-      name: "react_app",
-      library: {type: "var", name: "react_app"},
+      name: "react_routes_app",
+      library: {type: "var", name: "react_routes_app"},
       filename: "remoteEntry.js",
       exposes: {
-        "ReactApp": "./main.plugin"
+        "RoutesApp": "./main.plugin"
       },
-      shared: [{"react": {singleton: true, eager: true}}, {"react-dom": {singleton: true, eager: true}}, {"react-router-dom": {singleton: true, eager: false}}]
+      shared: [{"react": {singleton: true, eager: true}}, {"react-dom": {singleton: true, eager: true}}, {"react-router-dom": {singleton: true, eager: true}}]
     }),
   ],
   devServer: {
-    contentBase: sourcePath,
+    historyApiFallback: true,
+    contentBase: 'build',
     hot: false,
+    port: 8081
   },
   // https://webpack.js.org/configuration/devtool/
   devtool: isProduction ? 'hidden-source-map' : 'eval-source-map'

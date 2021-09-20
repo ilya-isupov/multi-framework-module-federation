@@ -10,7 +10,7 @@ export const SAMPLE_CONFIGURATION: ReadonlyArray<FederationPlugin> = [
     exposedModule: 'MfeModule',
     displayName: 'Notes',
     routePath: 'notes',
-    moduleName: 'BusinessModule',
+    moduleClassName: 'BusinessModule',
     navigationAlias: 'notesList'
   },
   {
@@ -30,6 +30,16 @@ export const SAMPLE_CONFIGURATION: ReadonlyArray<FederationPlugin> = [
     displayName: 'Simple Vue App',
     routePath: 'vue',
     navigationAlias: 'vue'
+  },
+  {
+    type: 'react',
+    remoteEntry: 'http://localhost:8081/remoteEntry.js',
+    remoteName: 'react_routes_app',
+    exposedModule: 'RoutesApp',
+    displayName: 'Nested routes example',
+    routePath: 'routesReact',
+    navigationAlias: 'routesReact',
+    moduleClassName: 'MainApplicationPlugin'
   }
 ];
 
@@ -45,6 +55,27 @@ export const ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR: Record<string, FederationPlug
     remoteEntry: 'http://localhost:4202/remoteEntry.js',
     remoteName: 'angular_mfe_2',
     exposedModule: 'NotesCounter',
-    moduleName: 'NotesCounterComponent'
+    componentClassName: 'NotesCounterComponent'
+  },
+  notesCounterExtended: {
+    type: 'angular',
+    subType: 'componentModule',
+    remoteEntry: 'http://localhost:4202/remoteEntry.js',
+    remoteName: 'angular_mfe_2',
+    exposedModule: 'NotesCounterExtended',
+    exposedComponent: 'NotesCounter',
+    moduleClassName: 'NotesCounterModule',
+    componentClassName: 'NotesCounterComponent'
+  }
+};
+
+export const ANGULAR_REMOTE_SERVICE_DESCRIPTOR: Record<string, FederationPlugin> = {
+  notesService: {
+    type: 'angular',
+    remoteEntry: 'http://localhost:4202/remoteEntry.js',
+    remoteName: 'angular_mfe_2',
+    exposedModule: 'NotesCounterExtended',
+    moduleClassName: 'NotesCounterModule',
+    serviceClassName: 'NotesService'
   }
 };

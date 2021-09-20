@@ -48,8 +48,8 @@ async function lookupExposedRemote<T>(
 
 export type LoadRemoteModuleOptions = {
     remoteEntry: string;
-    remoteName: string;
-    exposedModule: string;
+    remoteName?: string;
+    exposedModule?: string;
 };
 
 export async function loadRemoteModule(
@@ -60,4 +60,10 @@ export async function loadRemoteModule(
         options.remoteName,
         options.exposedModule
     );
+}
+
+export function InjectMfService<T>(module, service): (target: any) => void {
+  return function decorator(target): void {
+    target.noteService = {get: () => 1};
+  };
 }
