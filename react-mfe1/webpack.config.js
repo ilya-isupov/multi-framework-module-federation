@@ -106,12 +106,12 @@ module.exports = {
       exposes: {
         "ReactApp": "./main.plugin"
       },
-      shared: [{"react": {singleton: true, eager: true}}, {"react-dom": {singleton: true, eager: true}}]
+      shared: [{"react": {singleton: true, eager: true}}, {"react-dom": {singleton: true, eager: true}}, {"react-router-dom": {singleton: true, eager: false}}]
     }),
   ],
   devServer: {
     contentBase: sourcePath,
-    hot: true,
+    hot: false,
   },
   // https://webpack.js.org/configuration/devtool/
   devtool: isProduction ? 'hidden-source-map' : 'eval-source-map'

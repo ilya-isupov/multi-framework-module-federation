@@ -8,6 +8,7 @@ export class MainApplicationPlugin extends React.Component {
   }
 
   render() {
+    console.log("REACT 2: " + this.props.basename);
     return (
       <div>
         <React.StrictMode>

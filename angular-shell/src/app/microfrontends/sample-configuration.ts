@@ -26,7 +26,7 @@ export const SAMPLE_CONFIGURATION: ReadonlyArray<FederationPlugin> = [
   {
     type: 'react',
     remoteEntry: 'http://localhost:8081/remoteEntry.js',
-    remoteName: 'react_app',
+    remoteName: 'react_routes_app',
     exposedModule: 'RoutesApp',
     displayName: 'Nested routes example',
     routePath: 'routesReact',

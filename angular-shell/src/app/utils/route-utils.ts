@@ -1,7 +1,6 @@
 import {loadRemoteModule} from './federation-utils';
 import {Routes} from '@angular/router';
 import {FederationPlugin} from '../microfrontends/microfrontend.model';
-import {AngularWrapperComponent} from '../components/angular-wrapper/angular-wrapper.component';
 import {ReactWrapperComponent} from '../components/react-wrapper/react-wrapper.component';
 import {WelcomeComponent} from '../components/welcome/welcome.component';
 
@@ -37,12 +36,12 @@ export function buildRoutes(options: ReadonlyArray<FederationPlugin>): Routes {
           path: mfe.routePath,
           children: [
             {
-              path: "**",
+              path: '**',
               component: ReactWrapperComponent,
               data: {configuration: mfe}
             }
           ]
-        }
+        };
       }
       default: {
         return {

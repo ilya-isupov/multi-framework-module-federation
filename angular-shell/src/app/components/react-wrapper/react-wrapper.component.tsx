@@ -16,11 +16,13 @@ import {GlobalNavigationService} from '../../microfrontends/global-navigation.se
 })
 export class ReactWrapperComponent implements AfterContentInit {
 
-  _props: Record<string, unknown>
+  propsInternal: Record<string, unknown>;
+
   @Input() set props(props: Record<string, unknown>) {
-    this._props = props;
+    this.propsInternal = props;
     this.updateComponentProps(props);
   }
+
   @Input() configuration: FederationPlugin;
 
   private reactMFEModule;
@@ -34,7 +36,7 @@ export class ReactWrapperComponent implements AfterContentInit {
   }
 
   async ngAfterContentInit(): Promise<void> {
-    if(!this.configuration) {
+    if (!this.configuration) {
       this.route.data
         .pipe(take(1))
         .subscribe(async (data: Data) => {
@@ -42,7 +44,7 @@ export class ReactWrapperComponent implements AfterContentInit {
           await this.renderComponent(configuration, data.props);
         });
     }
-    await this.renderComponent(this.configuration, this._props);
+    await this.renderComponent(this.configuration, this.propsInternal);
   }
 
   private async renderComponent(configuration: FederationPlugin, props: Record<string, unknown>): Promise<void> {
@@ -66,8 +68,8 @@ export class ReactWrapperComponent implements AfterContentInit {
     if (!routeProps) {
       routeProps = {};
     }
-    if (!this._props) {
-      this._props = {};
+    if (!this.propsInternal) {
+      this.propsInternal = {};
     }
 
     return {...this.props, ...routeProps, eventBus: this.eventBusService, globalNavigation: this.globalNavigationService};
