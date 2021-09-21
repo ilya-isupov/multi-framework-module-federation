@@ -104,7 +104,8 @@ module.exports = {
       library: {type: "var", name: "react_routes_app"},
       filename: "remoteEntry.js",
       exposes: {
-        "RoutesApp": "./main.plugin"
+        "RoutesApp": "./main.plugin",
+        "PropsApp": "./props.plugin"
       },
       shared: [{"react": {singleton: true, eager: true}}, {"react-dom": {singleton: true, eager: true}}, {"react-router-dom": {singleton: true, eager: true}}]
     }),

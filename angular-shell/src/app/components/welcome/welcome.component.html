@@ -7,4 +7,17 @@
       {{ route.displayName }}
     </div>
   </div>
+  <div class="host-welcome__react">
+    <div>
+      This component part is just to demonstrate passing props to react remote plugin
+    </div>
+    <button class="host-welcome__react-button"
+      (click)="passReactProps()"
+    >
+      Pass new props new react plugin below
+    </button>
+    <react-wrapper [configuration]="reactPluginConfiguration$ | async"
+                   [props]="reactPluginProps"
+    ></react-wrapper>
+  </div>
 </div>

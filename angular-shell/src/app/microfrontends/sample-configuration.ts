@@ -69,6 +69,12 @@ export const ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR: Record<string, FederationPlug
     exposedComponent: 'NotesCounter',
     moduleClassName: 'NotesCounterModule',
     componentClassName: 'NotesCounterComponent'
+  },
+  reactExamplePlugin: {
+    remoteEntry: 'http://localhost:8081/remoteEntry.js',
+    remoteName: 'react_routes_app',
+    exposedModule: 'PropsApp',
+    moduleClassName: 'PluginApplication'
   }
 };
 

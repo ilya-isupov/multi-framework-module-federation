@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link, Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
+import {MainApp} from 'app/containers/main-container/main-container';
 
 export namespace SecondRoute {
   export interface Props extends RouteComponentProps<void> {
@@ -10,6 +11,18 @@ export class SecondRoute extends React.Component<SecondRoute.Props> {
 
   constructor(props: SecondRoute.Props, context?: any) {
     super(props, context);
+  }
+
+  componentDidMount(): void {
+    console.log("DID MOUNT");
+  }
+
+  componentDidUpdate(prevProps: Readonly<MainApp.Props>, prevState: Readonly<MainApp.State>, snapshot?: any): void {
+    console.log("DID UPDATE");
+  }
+
+  componentWillUnmount(): void {
+    console.log("WILL UNMOUNT");
   }
 
 
