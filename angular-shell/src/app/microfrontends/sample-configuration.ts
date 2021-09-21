@@ -53,7 +53,6 @@ export const NAVIGATION_ALIASES_MAP_TO_ROUTE_URL: Record<NavigationAlias, Federa
 
 export const ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR: Record<string, FederationPlugin> = {
   notesCounter: {
-    type: 'angular',
     subType: 'component',
     remoteEntry: 'http://localhost:4202/remoteEntry.js',
     remoteName: 'angular_mfe_2',
@@ -61,7 +60,6 @@ export const ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR: Record<string, FederationPlug
     componentClassName: 'NotesCounterComponent'
   },
   notesCounterWithProvidersExtended: {
-    type: 'angular',
     subType: 'componentModule',
     remoteEntry: 'http://localhost:4202/remoteEntry.js',
     remoteName: 'angular_mfe_2',
@@ -80,7 +78,6 @@ export const ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR: Record<string, FederationPlug
 
 export const ANGULAR_REMOTE_SERVICE_DESCRIPTOR: Record<string, FederationPlugin> = {
   notesService: {
-    type: 'angular',
     remoteEntry: 'http://localhost:4202/remoteEntry.js',
     remoteName: 'angular_mfe_2',
     exposedModule: 'NotesCounterModule',
