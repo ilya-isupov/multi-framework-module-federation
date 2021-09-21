@@ -7,7 +7,6 @@ export const App = hot(module)((props: Record<string, unknown>) => {
     console.dir(props);
     return (
       <div>
-        COUNT: {props.count}
         <MainApp/>
       </div>
     );

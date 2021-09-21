@@ -11,7 +11,7 @@ export class MainApplicationPlugin extends React.Component {
     console.log("REACT 2: " + this.props.basename);
     return (
       <BrowserRouter basename={this.props.basename}>
-        <App count={this.props.count}/>
+        <App/>
       </BrowserRouter>
     )
   }
