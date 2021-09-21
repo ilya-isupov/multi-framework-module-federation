@@ -20,7 +20,8 @@ export class AppComponent implements OnInit {
   notesCounterConfiguration$: Observable<FederationPlugin>;
   notesCounterExtendedConfiguration$: Observable<FederationPlugin>;
 
-  constructor(private federationPluginService: FederationPluginService) {}
+  constructor(private federationPluginService: FederationPluginService) {
+  }
 
   private get notesService(): Promise<TestService> {
     return this.federationPluginService.getRemoteService<TestService>('notesService');
@@ -33,7 +34,7 @@ export class AppComponent implements OnInit {
 
     this.notesService.then((service) => {
       service.getAllNotes().subscribe((count) => {
-        console.log(count);
+        console.log('COUNT: ' + count);
       });
       service.loadDnsId()
         .pipe(
@@ -42,7 +43,7 @@ export class AppComponent implements OnInit {
           })
         )
         .subscribe((dnsId: string) => {
-          console.log(dnsId);
+          console.log('ID: ' + dnsId);
         });
     });
   }
