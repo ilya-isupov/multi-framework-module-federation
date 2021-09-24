@@ -14,6 +14,17 @@ export const SAMPLE_CONFIGURATION: ReadonlyArray<FederationPlugin> = [
     navigationAlias: 'notesList'
   },
   {
+    type: 'angular',
+    subType: 'routeModule',
+    remoteEntry: 'http://localhost:4201/remoteEntry.js',
+    remoteName: 'angular_mfe_1',
+    exposedModule: 'MfeModule',
+    displayName: 'Notes',
+    routePath: 'notesOlga',
+    moduleClassName: 'BusinessModule',
+    navigationAlias: 'notesList'
+  },
+  {
     type: 'react',
     remoteEntry: 'http://localhost:8080/remoteEntry.js',
     remoteName: 'react_app',
@@ -59,31 +70,34 @@ export const NAVIGATION_ALIASES_MAP_TO_ROUTE_URL: Record<NavigationAlias, Federa
 
 export const ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR: Record<string, FederationPlugin> = {
   notesCounter: {
-    type: 'angular',
     subType: 'component',
     remoteEntry: 'http://localhost:4202/remoteEntry.js',
     remoteName: 'angular_mfe_2',
     exposedModule: 'NotesCounter',
     componentClassName: 'NotesCounterComponent'
   },
-  notesCounterExtended: {
-    type: 'angular',
+  notesCounterWithProvidersExtended: {
     subType: 'componentModule',
     remoteEntry: 'http://localhost:4202/remoteEntry.js',
     remoteName: 'angular_mfe_2',
-    exposedModule: 'NotesCounterExtended',
+    exposedModule: 'NotesCounterModule',
     exposedComponent: 'NotesCounter',
     moduleClassName: 'NotesCounterModule',
     componentClassName: 'NotesCounterComponent'
+  },
+  reactExamplePlugin: {
+    remoteEntry: 'http://localhost:8081/remoteEntry.js',
+    remoteName: 'react_routes_app',
+    exposedModule: 'PropsApp',
+    moduleClassName: 'PluginApplication'
   }
 };
 
 export const ANGULAR_REMOTE_SERVICE_DESCRIPTOR: Record<string, FederationPlugin> = {
   notesService: {
-    type: 'angular',
     remoteEntry: 'http://localhost:4202/remoteEntry.js',
     remoteName: 'angular_mfe_2',
-    exposedModule: 'NotesCounterExtended',
+    exposedModule: 'NotesCounterModule',
     moduleClassName: 'NotesCounterModule',
     serviceClassName: 'NotesService'
   }

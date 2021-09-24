@@ -28,7 +28,7 @@ module.exports = {
       filename: "remoteEntry.js",
       exposes: {
         NotesCounter: "./src/app/modules/notes-counter/notes-counter/notes-counter.component.ts",
-        NotesCounterExtended: "./src/app/modules/notes-counter/notes-counter.module.ts",
+        NotesCounterModule: "./src/app/modules/notes-counter/notes-counter.module.ts",
       },
       shared: {
         '@angular/common/http': {

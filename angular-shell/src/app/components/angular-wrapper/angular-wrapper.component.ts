@@ -57,13 +57,13 @@ export class AngularWrapperComponent implements AfterContentInit {
         case 'componentModule': {
           this.compiler.compileModuleAndAllComponentsAsync(component[configuration.moduleClassName])
             .then(async (module) => {
-              const moduleFactory = module.ngModuleFactory.create(this.injector);
+              const moduleReference = module.ngModuleFactory.create(this.injector);
               const innerComponent = await loadRemoteModule({
                 remoteEntry: configuration.remoteEntry,
                 remoteName: configuration.remoteName,
                 exposedModule: configuration.exposedComponent
               });
-              const moduleInjectorComponentFactory = moduleFactory
+              const moduleInjectorComponentFactory = moduleReference
                 .componentFactoryResolver
                 .resolveComponentFactory(innerComponent[configuration.componentClassName]);
               this.saveInputsOutputs(moduleInjectorComponentFactory);

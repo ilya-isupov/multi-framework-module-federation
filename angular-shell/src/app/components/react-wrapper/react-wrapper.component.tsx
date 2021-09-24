@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ElementRef, Input} from '@angular/core';
+import {AfterContentInit, Component, ElementRef, Input, OnDestroy} from '@angular/core';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {ActivatedRoute, Data} from '@angular/router';
@@ -14,8 +14,7 @@ import {GlobalNavigationService} from '../../microfrontends/global-navigation.se
   template: '',
   styles: [':host {height: 100%; overflow: auto;}']
 })
-export class ReactWrapperComponent implements AfterContentInit {
-
+export class ReactWrapperComponent implements AfterContentInit, OnDestroy {
   propsInternal: Record<string, unknown>;
 
   @Input() set props(props: Record<string, unknown>) {
@@ -55,13 +54,28 @@ export class ReactWrapperComponent implements AfterContentInit {
       exposedModule: configuration.exposedModule
     });
     this.reactMFEModule = component[configuration.moduleClassName];
-    const ReactElement = React.createElement(this.reactMFEModule, this.constructProps({...props, basename: this.configuration.routePath}));
+    const ReactElement = React.createElement(
+      this.reactMFEModule,
+      this.constructProps({
+        ...props,
+        basename: this.configuration.routePath
+      })
+    );
     ReactDOM.render(ReactElement, this.hostRef.nativeElement);
   }
 
+  ngOnDestroy(): void {
+    ReactDOM.unmountComponentAtNode(this.hostRef.nativeElement);
+  }
+
   private updateComponentProps(props: Record<string, unknown>): void {
-    const ReactElement = React.createElement(this.reactMFEModule, this.constructProps({...props, basename: this.configuration.routePath}));
-    ReactDOM.render(ReactElement, this.hostRef.nativeElement);
+    if (this.reactMFEModule) {
+      const ReactElement = React.createElement(this.reactMFEModule, this.constructProps({
+        ...props,
+        basename: this.configuration.routePath
+      }));
+      ReactDOM.hydrate(ReactElement, this.hostRef.nativeElement);
+    }
   }
 
   private constructProps(routeProps): Record<string, unknown> {

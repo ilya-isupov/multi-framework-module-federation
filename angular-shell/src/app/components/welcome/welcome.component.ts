@@ -11,9 +11,23 @@ import {AppService} from '../../app.service';
 })
 export class WelcomeComponent implements OnInit {
   routes$: Observable<ReadonlyArray<FederationPlugin>>;
+  reactPluginConfiguration$: Observable<FederationPlugin>;
+  reactPluginProps: Record<string, unknown> = {
+    basename: '/'
+  };
+
+  constructor(private federationPluginService: FederationPluginService) {
+  }
 
   ngOnInit(): void {
     this.routes$ = AppService.getRoutes();
+    this.reactPluginConfiguration$ = this.federationPluginService.getRemoteComponentConfiguration('reactExamplePlugin');
   }
 
+  passReactProps(): void {
+    this.reactPluginProps = {
+      ...this.reactPluginProps,
+      count: Math.random()
+    };
+  }
 }
