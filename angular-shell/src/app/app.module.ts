@@ -9,12 +9,16 @@ import {FederationPluginService} from './microfrontends/federation-plugin.servic
 import {WelcomeComponent} from './components/welcome/welcome.component';
 import {EventBusService} from './microfrontends/event-bus.service';
 import {GlobalNavigationService} from './microfrontends/global-navigation.service';
+import {VueWrapperComponent} from './components/vue-wrapper/vue-wrapper.component';
+import {SelfRunWrapperComponent} from './components/self-run-wrapper/self-run-wrapper.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AngularWrapperComponent,
     ReactWrapperComponent,
+    SelfRunWrapperComponent,
+    VueWrapperComponent,
     WelcomeComponent
   ],
   imports: [
