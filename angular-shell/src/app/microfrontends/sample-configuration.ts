@@ -43,7 +43,24 @@ export const ROUTES_CONFIGURATION: ReadonlyArray<FederationPlugin> = [
     displayName: 'Notes admin panel',
     routePath: 'notesAdminPanel',
     navigationAlias: 'notesAdminPanel',
-    moduleClassName: 'MainApplicationPlugin'
+    moduleName: 'MainApplicationPlugin'
+  },
+  {
+    remoteEntry: 'http://localhost:3002/remoteEntry.js',
+    remoteName: 'vue_app',
+    exposedModule: './App',
+    displayName: 'Simple Vue App',
+    routePath: 'vue',
+    navigationAlias: 'vue'
+  },
+  {
+    type: 'vue',
+    remoteEntry: 'http://localhost:3002/remoteEntry.js',
+    remoteName: 'vue_app',
+    exposedModule: './Content',
+    displayName: 'Simple Vue Component',
+    routePath: 'vue-content',
+    navigationAlias: 'vue-content'
   },
   {
     type: 'react',
