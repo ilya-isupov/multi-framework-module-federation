@@ -1,7 +1,7 @@
 import {FederationPlugin} from './microfrontend.model';
 import {NavigationAlias} from './navigation.const';
 
-export const SAMPLE_CONFIGURATION: ReadonlyArray<FederationPlugin> = [
+export const ROUTES_CONFIGURATION: ReadonlyArray<FederationPlugin> = [
   {
     type: 'angular',
     subType: 'routeModule',
@@ -23,6 +23,17 @@ export const SAMPLE_CONFIGURATION: ReadonlyArray<FederationPlugin> = [
     routePath: 'notesOlga',
     moduleClassName: 'BusinessModule',
     navigationAlias: 'notesList'
+  },
+  {
+    type: 'angular',
+    subType: 'routeModule',
+    remoteEntry: 'http://localhost:4203/remoteEntry.js',
+    remoteName: 'angular_mfe_3',
+    exposedModule: 'NotesCounterModule',
+    displayName: 'Notes Counter 12 Angular',
+    routePath: 'notesCounter12Angular',
+    moduleClassName: 'NotesCounterModule',
+    navigationAlias: 'notesCounter12Angular'
   },
   {
     type: 'react',
@@ -59,10 +70,26 @@ export const ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR: Record<string, FederationPlug
     exposedModule: 'NotesCounter',
     componentClassName: 'NotesCounterComponent'
   },
+  notesCounterAngular12: {
+    subType: 'component',
+    remoteEntry: 'http://localhost:4203/remoteEntry.js',
+    remoteName: 'angular_mfe_3',
+    exposedModule: 'NotesCounter',
+    componentClassName: 'NotesCounterComponent'
+  },
   notesCounterWithProvidersExtended: {
     subType: 'componentModule',
     remoteEntry: 'http://localhost:4202/remoteEntry.js',
     remoteName: 'angular_mfe_2',
+    exposedModule: 'NotesCounterModule',
+    exposedComponent: 'NotesCounter',
+    moduleClassName: 'NotesCounterModule',
+    componentClassName: 'NotesCounterComponent'
+  },
+  notesCounterAngular12WithProvidersExtended: {
+    subType: 'componentModule',
+    remoteEntry: 'http://localhost:4203/remoteEntry.js',
+    remoteName: 'angular_mfe_3',
     exposedModule: 'NotesCounterModule',
     exposedComponent: 'NotesCounter',
     moduleClassName: 'NotesCounterModule',

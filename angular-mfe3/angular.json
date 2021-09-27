@@ -6,7 +6,7 @@
     "packageManager": "yarn"
   },
   "projects": {
-    "angular-shell": {
+    "angular-mfe3": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "ngx-build-plus:browser",
           "options": {
-            "outputPath": "dist/angular-shell",
+            "outputPath": "dist/angular-mfe3",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -53,7 +53,7 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": true,
+              "vendorChunk": false,
               "buildOptimizer": true,
               "budgets": [
                 {
@@ -74,13 +74,13 @@
         "serve": {
           "builder": "ngx-build-plus:dev-server",
           "options": {
-            "browserTarget": "angular-shell:build",
+            "browserTarget": "angular-mfe3:build",
             "extraWebpackConfig": "webpack.config.js",
-            "port": 4200
+            "port": 4203
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-shell:build:production",
+              "browserTarget": "angular-mfe3:build:production",
               "extraWebpackConfig": "webpack.prod.config.js"
             }
           }
@@ -88,7 +88,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-shell:build"
+            "browserTarget": "angular-mfe3:build"
           }
         },
         "test": {
@@ -126,16 +126,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular-shell:serve"
+            "devServerTarget": "angular-mfe3:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-shell:serve:production"
+              "devServerTarget": "angular-mfe3:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "angular-shell"
+  "defaultProject": "angular-mfe3"
 }

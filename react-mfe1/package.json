@@ -7,6 +7,7 @@
     "deploy": "gh-pages -d build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-cli serve",
+    "start:prod": "webpack-cli -p serve",
     "build": "webpack --mode production",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "server": "tsc-watch ./server/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\" --onFailure \"echo Beep! Compilation Failed\" --compiler typescript/bin/tsc",

@@ -9,7 +9,7 @@ import {
   ANGULAR_REMOTE_COMPONENTS_DESCRIPTOR,
   ANGULAR_REMOTE_SERVICE_DESCRIPTOR,
   NAVIGATION_ALIASES_MAP_TO_ROUTE_URL,
-  SAMPLE_CONFIGURATION
+  ROUTES_CONFIGURATION
 } from './sample-configuration';
 import {AppService} from '../app.service';
 import {NavigationAlias} from './navigation.const';
@@ -26,7 +26,7 @@ export class FederationPluginService {
 
   private static loadConfiguration(): Observable<ReadonlyArray<FederationPlugin>> {
     // just a sample, need to load this configuration from backend
-    return of(SAMPLE_CONFIGURATION);
+    return of(ROUTES_CONFIGURATION);
   }
 
   private static getMappingAliasToRouteUrl(): Observable<Record<NavigationAlias, FederationPlugin['navigationAlias']>> {

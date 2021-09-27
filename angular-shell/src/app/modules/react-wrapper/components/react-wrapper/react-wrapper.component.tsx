@@ -3,10 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {ActivatedRoute, Data} from '@angular/router';
 import {take} from 'rxjs/operators';
-import {FederationPlugin} from '../../microfrontends/microfrontend.model';
-import {loadRemoteModule} from '../../utils/federation-utils';
-import {EventBusService} from '../../microfrontends/event-bus.service';
-import {GlobalNavigationService} from '../../microfrontends/global-navigation.service';
+import {FederationPlugin} from '../../../../microfrontends/microfrontend.model';
+import {EventBusService} from '../../../../microfrontends/event-bus.service';
+import {GlobalNavigationService} from '../../../../microfrontends/global-navigation.service';
+import {loadRemoteModule} from '../../../../utils/federation-utils';
+
 
 
 @Component({

@@ -1,5 +1,5 @@
 {
-  "name": "angular-shell",
+  "name": "angular-mfe3",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -16,25 +16,23 @@
     "webpack": "^5.0.0"
   },
   "dependencies": {
-    "@angular-architects/module-federation": "12.1.1",
-    "@angular/animations": "~11.2.10",
-    "@angular/common": "~11.2.10",
-    "@angular/compiler": "~11.2.10",
-    "@angular/core": "~11.2.10",
-    "@angular/forms": "~11.2.10",
-    "@angular/platform-browser": "~11.2.10",
-    "@angular/platform-browser-dynamic": "~11.2.10",
-    "@angular/router": "~11.2.10",
-    "react": "^16.13.0",
-    "react-dom": "^16.8.1",
+    "@angular-architects/module-federation": "^12.5.2",
+    "@angular/animations": "12.1.1",
+    "@angular/common": "12.1.1",
+    "@angular/compiler": "12.1.1",
+    "@angular/core": "12.1.1",
+    "@angular/forms": "12.1.1",
+    "@angular/platform-browser": "12.1.1",
+    "@angular/platform-browser-dynamic": "12.1.1",
+    "@angular/router": "12.1.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1102.9",
-    "@angular/cli": "~11.2.9",
-    "@angular/compiler-cli": "~11.2.10",
+    "@angular-devkit/build-angular": "^12.1.1",
+    "@angular/cli": "12.2.3",
+    "@angular/compiler-cli": "12.1.1",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
@@ -45,11 +43,10 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "ng-packagr": "11.0.3",
-    "ngx-build-plus": "10.1.1",
+    "ngx-build-plus": "^12.0.1",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.1.5"
+    "typescript": "4.3.5"
   }
 }

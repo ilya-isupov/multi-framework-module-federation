@@ -6,45 +6,47 @@ import {FederationPluginService} from './microfrontends/federation-plugin.servic
 
 @Injectable()
 export class TestService {
-  getAllNotes: () => Observable<number>;
-  loadDnsId: () => Observable<string>;
+    getAllNotes: () => Observable<number>;
+    loadDnsId: () => Observable<string>;
 }
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less'],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.less'],
 })
 export class AppComponent implements OnInit {
-  routes$: Observable<ReadonlyArray<FederationPlugin>>;
-  notesCounterConfiguration$: Observable<FederationPlugin>;
-  notesCounterExtendedConfiguration$: Observable<FederationPlugin>;
+    routes$: Observable<ReadonlyArray<FederationPlugin>>;
+    notesCounterConfiguration$: Observable<FederationPlugin>;
+    notesCounterExtendedConfiguration$: Observable<FederationPlugin>;
+    notesCounterExtended12Configuration$: Observable<FederationPlugin>;
 
-  constructor(private federationPluginService: FederationPluginService) {
-  }
+    constructor(private federationPluginService: FederationPluginService) {
+    }
 
-  private get notesService(): Promise<TestService> {
-    return this.federationPluginService.getRemoteService<TestService>('notesService');
-  }
+    private get notesService(): Promise<TestService> {
+        return this.federationPluginService.getRemoteService<TestService>('notesService');
+    }
 
-  ngOnInit(): void {
-    this.routes$ = this.federationPluginService.loadRoutesConfig().pipe(shareReplay(1));
-    this.notesCounterConfiguration$ = this.federationPluginService.getRemoteComponentConfiguration('notesCounter');
-    this.notesCounterExtendedConfiguration$ = this.federationPluginService.getRemoteComponentConfiguration('notesCounterExtended');
+    ngOnInit(): void {
+        this.routes$ = this.federationPluginService.loadRoutesConfig().pipe(shareReplay(1));
+        this.notesCounterConfiguration$ = this.federationPluginService.getRemoteComponentConfiguration('notesCounter');
+        this.notesCounterExtendedConfiguration$ = this.federationPluginService.getRemoteComponentConfiguration('notesCounterAngular12');
+        this.notesCounterExtended12Configuration$ = this.federationPluginService.getRemoteComponentConfiguration('notesCounterAngular12WithProvidersExtended');
 
-    this.notesService.then((service) => {
-      service.getAllNotes().subscribe((count) => {
-        console.log('COUNT: ' + count);
-      });
-      service.loadDnsId()
-        .pipe(
-          catchError((error) => {
-            return of(null);
-          })
-        )
-        .subscribe((dnsId: string) => {
-          console.log('ID: ' + dnsId);
+        this.notesService.then((service) => {
+            service.getAllNotes().subscribe((count) => {
+                console.log('COUNT: ' + count);
+            });
+            service.loadDnsId()
+                .pipe(
+                    catchError((error) => {
+                        return of(null);
+                    })
+                )
+                .subscribe((dnsId: string) => {
+                    console.log('ID: ' + dnsId);
+                });
         });
-    });
-  }
+    }
 }
