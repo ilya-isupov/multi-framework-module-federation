@@ -43,7 +43,7 @@ export const ROUTES_CONFIGURATION: ReadonlyArray<FederationPlugin> = [
     displayName: 'Notes admin panel',
     routePath: 'notesAdminPanel',
     navigationAlias: 'notesAdminPanel',
-    moduleName: 'MainApplicationPlugin'
+    moduleClassName: 'MainApplicationPlugin'
   },
   {
     remoteEntry: 'http://localhost:3002/remoteEntry.js',

@@ -1,0 +1,31 @@
+{
+  "name": "multi-module-federation-aggregator",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "deps:all": "npm-run-all --parallel deps:shell deps:mfe1 deps:mfe2 deps:mfe3 deps:mfe1 deps:react:mfe1 deps:react:mfe2 deps:vue:mfe1",
+    "start:all": "concurrently --kill-others \"yarn start:shell\" \"yarn start:mfe1\" \"yarn start:mfe2\" \"yarn start:mfe3\" \"yarn start:react:mfe1\" \"yarn start:react:mfe2\" \"yarn start:vue:mfe1\"",
+    "start:angular:all:dev": "concurrently --kill-others \"yarn start:shell\" \"yarn start:mfe1\" \"yarn start:mfe2\" \"yarn start:mfe3\"",
+    "start:react:all:dev": "concurrently --kill-others \"yarn start:react:mfe1\" \"yarn start:react:mfe2\"",
+    "start:vue:all:dev": "concurrently --kill-others \"yarn start:vue:mfe1\"",
+    "deps:shell": "cd angular-shell && yarn",
+    "deps:mfe1": "cd angular-mfe1 && yarn",
+    "deps:mfe2": "cd angular-mfe2 && yarn",
+    "deps:mfe3": "cd angular-mfe3 && yarn",
+    "deps:react:mfe1": "cd react-mfe1 && yarn",
+    "deps:react:mfe2": "cd react-mfe2 && yarn",
+    "deps:vue:mfe1": "cd vue-mfe1 && yarn",
+    "start:shell": "cd angular-shell && yarn start",
+    "start:mfe1": "cd angular-mfe1 && yarn start",
+    "start:mfe2": "cd angular-mfe2 && yarn start",
+    "start:mfe3": "cd angular-mfe3 && yarn start",
+    "start:react:mfe1": "cd react-mfe1 && yarn start",
+    "start:react:mfe2": "cd react-mfe2 && yarn start",
+    "start:vue:mfe1": "cd vue-mfe1 && yarn start"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^6.2.2",
+    "npm-run-all": "^4.1.5"
+  }
+}
