@@ -63,6 +63,7 @@ export class AngularWrapperComponent implements AfterContentInit {
                 remoteName: configuration.remoteName,
                 exposedModule: configuration.exposedComponent
               });
+              // TODO: Can cache compiled modules to reuse they in second time
               const moduleInjectorComponentFactory = moduleReference
                 .componentFactoryResolver
                 .resolveComponentFactory(innerComponent[configuration.componentClassName]);
